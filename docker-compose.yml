@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    env_file: .env
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/var/www/redux-in-docker/src
+      - /var/www/redux-in-docker/src/node_modules

@@ -1,0 +1,45 @@
+$navbar-height: 50px;
+
+$chrome-margin-left: 20px;
+$chrome-padding: 10px;
+
+$blue-grey: #455A64;
+$blue-grey-light: #667686;
+$brand-blue-grey: rgb(67, 82, 87);
+$brand-blue: rgb(21, 165, 213);
+$brand-magenta: rgb(182, 69, 153);
+$brand-orange: rgb(247, 163, 33);
+$brand-green: rgb(198, 215, 62);
+$brand-pink: rgb(227, 112, 160);
+$dark-grey: #AEB4B4;
+$grey-light: #F3F3F4;
+$grey-medium: #AEB4B4;
+$pale-blue: #69B6DC;
+$pale-purple: #A751A2;
+$teal: #009688;
+$body-background-color: #fafafa;
+
+$default-font-family: Open Sans, sans-serif;
+$default-font-size: 14px;
+
+$layout-max-width: 1200px;
+$xs: 560px;
+$xs-max: 639px;
+$sm: 640px;
+$sm-max: 889px;
+$md: 890px;
+$lg: 960px;
+$xl: 1100px;
+$xxl: 1240px;
+$ipad-landscape: only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape);
+$ipad-portrait: only screen and (max-device-width : 768px) and (max-device-width : 768px) and (orientation : portrait);
+
+$box-shadow-small: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+
+body {
+  margin: 0;
+  color: $blue-grey;
+  background-color: $body-background-color;
+  font-family: $default-font-family;
+  font-size: $default-font-size;
+}

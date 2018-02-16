@@ -1,0 +1,68 @@
+@import '~styles/app.scss';
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navbar-height;
+  background-color: $grey-light;
+  margin: 0;
+  > div {
+    display: inline-block;
+  }
+
+}
+
+.navlinks {
+  margin: 0;
+  padding: 0;
+  ul {
+    top: -3px;
+    left: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      position: relative;
+      height: 20px;
+      display: inline-block;
+      margin-left: 15px;
+      margin-top: 20px;
+      svg {
+        position: absolute;
+        top: -15px;
+        left: 0;
+      }
+      a {
+        margin-left: 15px;
+        color: $blue-grey;
+      }
+    }
+  }
+}
+
+.navmenu {
+  float: right;
+  position: relative;
+  margin-right: 10px;
+
+  > span {
+    position: absolute;
+    right: 55px;
+    display: inline-block;
+    white-space: nowrap;
+    top: 15px;
+  }
+}
+
+.navmenu-avatar {
+  position: absolute;
+  top: 5px;
+  right:5px;
+}
+
+
+.home-icon {
+  margin-top: 10px;
+}

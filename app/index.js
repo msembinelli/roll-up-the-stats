@@ -8,7 +8,6 @@ import { Provider } from 'react-redux'
 
 import Chrome from './chrome'
 import Home from 'home'
-import { Counter } from 'counter'
 
 import configureStore from './store'
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -29,8 +28,8 @@ ReactDOM.render(
         <Route path='/'
                component={ Chrome }>
           <IndexRoute component={ Home } />
-          <Route path='counter'
-                 component={ Counter } />
+          {/* <Route path='add'
+                 component={ Add } /> */}
           <Redirect from="*"
                     to='/' />
         </Route>

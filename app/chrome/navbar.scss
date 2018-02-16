@@ -8,6 +8,7 @@
   height: $navbar-height;
   background-color: $grey-light;
   margin: 0;
+  text-align: center;
   > div {
     display: inline-block;
   }
@@ -42,26 +43,21 @@
   }
 }
 
-.navmenu {
+.navmenuright {
   float: right;
   position: relative;
-  margin-right: 10px;
-
-  > span {
-    position: absolute;
-    right: 55px;
-    display: inline-block;
-    white-space: nowrap;
-    top: 15px;
-  }
+  margin-right: 40px;
 }
 
-.navmenu-avatar {
-  position: absolute;
-  top: 5px;
-  right:5px;
+.navmenuleft {
+  float: left;
+  position: relative;
+  margin-left: 10px;
 }
 
+.navtitle {
+  margin-top: 15px;
+}
 
 .home-icon {
   margin-top: 10px;

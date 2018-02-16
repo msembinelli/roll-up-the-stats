@@ -1,33 +1,46 @@
 import React from 'react'
-import { BlankTargetLink } from 'common'
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table'
+import Card from 'material-ui/Card'
 
 export default function Home() {
   return (
     <div>
-      <h2>Welcome to the React Docker App</h2>
-      <p>Libraries used:</p>
-      <ul>
-        <li><BlankTargetLink to='https://github.com/reactjs/react-router/'>React Router (Redux)</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://github.com/reactjs/redux/'>Redux</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://github.com/gaearon/redux-thunk'>Redux Thunk</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://github.com/acdlite/redux-actions'>Redux Actions</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://github.com/reactjs/reselect'>reselect</BlankTargetLink></li>
-        <li><BlankTargetLink to='http://www.material-ui.com/'>Material UI</BlankTargetLink></li>
-        <li><BlankTargetLink to='http://lodash.com/'>lodash</BlankTargetLink></li>
-      </ul>
-      <p>Other libraries included but not used:</p>
-      <ul>
-        <li><BlankTargetLink to='https://github.com/paularmstrong/normalizr'>normalizr</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://github.com/matthew-andrews/isomorphic-fetch'>fetch</BlankTargetLink></li>
-      </ul>
-      <p>Hot-reloading is enabled; edit code in your IDE and watch the app update in real-time.</p>
-      <p><strong>Useful References:</strong></p>
-      <ul>
-        <li><BlankTargetLink to='https://www.youtube.com/watch?v=xsSnOQynTHs'>Hot Reloading With Time Travel</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://egghead.io/series/getting-started-with-redux'>Getting Started With Redux</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://egghead.io/courses/building-react-applications-with-idiomatic-redux'>Idiomatic Redux</BlankTargetLink></li>
-        <li><BlankTargetLink to='https://www.youtube.com/watch?v=VJ38wSFbM3A'>Read the Source - React Redux</BlankTargetLink></li>
-      </ul>
+      <div>
+        <Table>
+          <TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
+            <TableRow>
+              <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn>Date</TableHeaderColumn>
+              <TableHeaderColumn>Size</TableHeaderColumn>
+              <TableHeaderColumn>Win</TableHeaderColumn>
+              <TableHeaderColumn>Prize</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={ false }>
+            <TableRow>
+              <TableRowColumn>John Smith</TableRowColumn>
+              <TableRowColumn>February 15</TableRowColumn>
+              <TableRowColumn>Large</TableRowColumn>
+              <TableRowColumn>No</TableRowColumn>
+              <TableRowColumn>None</TableRowColumn>
+            </TableRow>
+            <TableRow>
+              <TableRowColumn>Randal White</TableRowColumn>
+              <TableRowColumn>February 15</TableRowColumn>
+              <TableRowColumn>Small</TableRowColumn>
+              <TableRowColumn>Yes</TableRowColumn>
+              <TableRowColumn>Coffee</TableRowColumn>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
     </div>
   )
 }

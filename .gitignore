@@ -4,3 +4,4 @@ node_modules/
 .idea
 karma-*
 .env
+server/data/

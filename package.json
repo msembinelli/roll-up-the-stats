@@ -62,6 +62,7 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
     "redux-form": "^7.2.3",
+    "redux-promise": "^0.5.3",
     "redux-standard-actions": "^1.0.1",
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.1"

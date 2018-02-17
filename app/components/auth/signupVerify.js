@@ -15,7 +15,7 @@ class SignupVerify extends Component {
     this.email = this.props.location.query.email;
 
     if(!this.props.signup || !this.email) {
-      browserHistory.push('/login');
+      browserHistory.push('/signin');
     }
   }
 
@@ -27,7 +27,7 @@ class SignupVerify extends Component {
   render() {
     return (
       <div className={ styles.content }>
-        <h1>Activate account</h1>
+        <h2>Activate account</h2>
         <h3>Please confirm the verification code we've just emailed you at <u>{ this.email && this.email }</u></h3>
         {
           !this.state.resend ?

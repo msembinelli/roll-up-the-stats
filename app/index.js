@@ -7,8 +7,9 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 
 import Chrome from './components/chrome'
-import Login from './components/auth/login'
+import SignIn from './components/auth/signin'
 import SignUp from './components/auth/signup'
+import ResetPassword from './components/resetPassword/ResetPassword'
 import Home from './components/home'
 
 import configureStore from './store'
@@ -30,10 +31,12 @@ ReactDOM.render(
         <Route path='/'
                component={ Chrome }>
           <IndexRoute component={ Home } />
-          <Route path='login'
-                 component={ Login } />
+          <Route path='signin'
+                 component={ SignIn } />
           <Route path='signup'
                  component={ SignUp } />
+          <Route path='reset-password'
+                 component={ ResetPassword } />
           <Redirect from="*"
                     to='/' />
         </Route>

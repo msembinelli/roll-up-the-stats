@@ -30,7 +30,7 @@ export function signupUser(props) {
       .then(() => {
         dispatch({ type: SIGNUP_SUCCESS })
 
-        browserHistory.push(`/reduxauth/signup/verify-email?email=${props.email}`)
+        browserHistory.push(`/signup/verify-email?email=${props.email}`)
       })
       .catch(response => dispatch(authError(SIGNUP_FAILURE, response.data.error)))
   }
@@ -49,7 +49,7 @@ export function signinUser(props) {
 
         dispatch({ type: AUTH_USER })
 
-        browserHistory.push('/reduxauth/users')
+        browserHistory.push('/users')
       })
       .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")))
   }
@@ -81,7 +81,7 @@ export function verifyEmail(props) {
 
         dispatch({ type: AUTH_USER })
 
-        browserHistory.push('/reduxauth/users')
+        browserHistory.push('/users')
       })
       .catch(response => dispatch(authError(VERIFY_EMAIL_ERROR, response.data.error)))
   }

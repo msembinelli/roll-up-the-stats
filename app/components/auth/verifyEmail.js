@@ -31,7 +31,7 @@ class VerifyEmail extends Component {
         {
           this.props.errorMessage && this.props.errorMessage.verifyEmail &&
             <div>
-              <h1>Failure</h1>
+              <h2>Failure</h2>
 
               <p>{ this.props.errorMessage.verifyEmail.message }</p>
             </div>

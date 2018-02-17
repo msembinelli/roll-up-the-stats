@@ -31,7 +31,7 @@ export default function Navbar() {
           <ul>
             <li>
               <NavLink
-                to='/login'
+                to='/signin'
                 onlyActiveOnIndex>
                 <AccountCircle
                   className={ styles.homeIcon }

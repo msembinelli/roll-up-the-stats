@@ -6,8 +6,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 
-import Chrome from './chrome'
-import Home from 'home'
+import Chrome from './components/chrome'
+import SignIn from './components/auth/signin'
+import SignUp from './components/auth/signup'
+import Home from './components/home'
 
 import configureStore from './store'
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -28,8 +30,10 @@ ReactDOM.render(
         <Route path='/'
                component={ Chrome }>
           <IndexRoute component={ Home } />
-          {/* <Route path='add'
-                 component={ Add } /> */}
+          <Route path='login'
+                 component={ SignIn } />
+          <Route path='signup'
+                 component={ SignUp } />
           <Redirect from="*"
                     to='/' />
         </Route>

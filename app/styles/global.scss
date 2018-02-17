@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700);
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: lighter;
+  letter-spacing: .5px;
+  background-color: $light-gray;
+  color: $light-black;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+a {
+  &:visited,
+  &:after,
+  &:active,
+  &:focus,
+  &:checked,
+  &:enabled,
+  &:link {
+    text-decoration: none !important;
+  }
+}
+
+a,
+button,
+select,
+textarea {
+  outline: none !important;
+}
+
+input {
+  outline: none;
+}
+
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+h2 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.formcontainer {
+  padding: 30px 0 60px 0;
+  max-width: 600px;
+  margin: 0 auto 0 auto;
+}
+
+.content {
+  text-align: center;
+  padding: 0 30px;
+
+  h3 {
+    margin: 40px 0;
+  }
+}
+
+.resend {
+  color: $blue;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.resended {
+  color: $green;
+}

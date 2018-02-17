@@ -2,12 +2,15 @@ import React from 'react'
 import ActionHome from 'material-ui/svg-icons/action/home'
 import AddCircle from 'material-ui/svg-icons/content/add-circle'
 import AccountCircle from 'material-ui/svg-icons/action/account-circle'
-import { NavLink } from 'common'
-import styles from './navbar.scss'
+import { NavLink } from '../common'
+import styles from '../../styles/navbar.scss'
 
 export default function Navbar() {
   return (
     <div className={ styles.navbar }>
+      <div className={ styles.navtitle }>
+        Roll Up The Stats!
+      </div>
       <div className={ styles.navmenuleft }>
         <div className={ styles.navlinks }>
           <ul>
@@ -23,15 +26,12 @@ export default function Navbar() {
           </ul>
         </div>
       </div>
-      <div className={ styles.navtitle }>
-        Roll Up The Stats!
-      </div>
       <div className={ styles.navmenuright }>
         <div className={ styles.navlinks }>
           <ul>
             <li>
               <NavLink
-                to='/'
+                to='/login'
                 onlyActiveOnIndex>
                 <AccountCircle
                   className={ styles.homeIcon }
@@ -40,7 +40,7 @@ export default function Navbar() {
             </li>
             <li>
               <NavLink
-                to='/'
+                to='/new'
                 onlyActiveOnIndex>
                 <AddCircle
                   className={ styles.homeIcon }

@@ -7,7 +7,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table'
-import Card from 'material-ui/Card'
+// import Card from 'material-ui/Card'
 
 export default function Home() {
   return (

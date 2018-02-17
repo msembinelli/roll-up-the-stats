@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get install -y nginx
 
 ENV TERM=xterm
-ENV ROOT /var/www/redux-in-docker
+ENV ROOT /var/www/roll-up-the-stats
 
 # make this cache-able
 RUN mkdir -p $ROOT/dist && \

@@ -7,5 +7,5 @@ services:
     ports:
       - '8000:8000'
     volumes:
-      - .:/var/www/redux-in-docker/src
-      - /var/www/redux-in-docker/src/node_modules
+      - .:/var/www/roll-up-the-stats/src
+      - /var/www/roll-up-the-stats/src/node_modules

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Navbar from './navbar'
-import styles from './chrome.scss'
+import styles from '../../styles/chrome.scss'
 
 export default function Chrome({ children }) {
   return <div>

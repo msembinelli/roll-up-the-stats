@@ -1,14 +1,15 @@
 @import '~styles/app.scss';
 
 .navbar {
+  min-width: 380px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: $navbar-height;
   background-color: $grey-light;
-  margin: 0;
   text-align: center;
+  margin: 0 auto 0 auto;
   > div {
     display: inline-block;
   }
@@ -56,7 +57,8 @@
 }
 
 .navtitle {
-  margin-top: 15px;
+  margin: 15px 0 30px 55px;
+  text-align: center;
 }
 
 .home-icon {

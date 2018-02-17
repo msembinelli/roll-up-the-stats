@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 
 import Chrome from './components/chrome'
-import SignIn from './components/auth/signin'
+import Login from './components/auth/login'
 import SignUp from './components/auth/signup'
 import Home from './components/home'
 
@@ -31,7 +31,7 @@ ReactDOM.render(
                component={ Chrome }>
           <IndexRoute component={ Home } />
           <Route path='login'
-                 component={ SignIn } />
+                 component={ Login } />
           <Route path='signup'
                  component={ SignUp } />
           <Redirect from="*"

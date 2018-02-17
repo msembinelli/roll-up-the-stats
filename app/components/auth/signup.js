@@ -32,24 +32,24 @@ class Signup extends Component {
         <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
 
           { /* Firstname */ }
-          <Field name="firstname" component={ renderField } type="text" placeholder="First name" />
+          <Field name="Firstname" component={ renderField } type="text" placeholder="First name" />
 
           { /* Lastname */ }
-          <Field name="lastname" component={ renderField } type="text" placeholder="Last name" />
+          <Field name="Lastname" component={ renderField } type="text" placeholder="Last name" />
 
           { /* Email */ }
-          <Field name="email" component={ renderField } type="text" placeholder="Email" />
+          <Field name="Email" component={ renderField } type="text" placeholder="Email" />
 
           { /* Password */ }
-          <Field name="password" component={ renderField } type="password" placeholder="Password" />
+          <Field name="Password" component={ renderField } type="password" placeholder="Password" />
 
           { /* Email */ }
-          <Field name="repassword" component={ renderField } type="password" placeholder="Repeat Password" />
+          <Field name="Repassword" component={ renderField } type="password" placeholder="Repeat Password" />
 
           { /* Server error message */ }
           <div>
             { this.props.errorMessage && this.props.errorMessage.signup &&
-                <div className="error-container">Oops! { this.props.errorMessage.signup }</div> }
+                <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
           </div>
 
           { /* Submit button */ }
@@ -58,7 +58,7 @@ class Signup extends Component {
           { /* Sign in button */ }
           <div className={ styles.formbottom }>
             <p>Already signed up?</p>
-            <Link to="/reduxauth/signin">Click here to sign in</Link>
+            <Link to="/login">Click here to sign in</Link>
           </div>
         </form>
       </div>
@@ -68,7 +68,7 @@ class Signup extends Component {
 
 const validate = props => {
   const errors = {}
-  const fields = [ 'firstname', 'lastname', 'email', 'password', 'repassword' ]
+  const fields = [ 'Firstname', 'Lastname', 'Email', 'Password', 'Repassword' ]
 
   fields.forEach((f) => {
     if(!(f in props)) {

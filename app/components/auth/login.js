@@ -12,7 +12,7 @@ const renderField = ({ input, type, placeholder, meta: { touched, error } }) => 
   </div>
 )
 
-class Signin extends Component {
+class Login extends Component {
   constructor(props) {
     super(props)
 
@@ -38,13 +38,13 @@ class Signin extends Component {
           <Field name="password" component={ renderField } type="password" placeholder="Password" />
 
           { /* Forgot password */ }
-          <div className="password-forgot">
+          <div className={ styles.passwordforgot }>
             <Link to="/reset">I forgot my password</Link>
           </div>
 
           { /* Server error message */ }
           { this.props.errorMessage && this.props.errorMessage.signin &&
-              <div className="error-container signin-error">Oops! { this.props.errorMessage.signin }</div> }
+              <div className={ `${ styles.errorcontainer } ${ styles.signinerror }` }>Oops! { this.props.errorMessage.signin }</div> }
 
           { /* Signin button */ }
           <button type="submit" className={ styles.btn }>Sign in</button>
@@ -79,5 +79,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(
-    reduxForm({ form: 'signin', validate })(Signin)
+    reduxForm({ form: 'signin', validate })(Login)
 )

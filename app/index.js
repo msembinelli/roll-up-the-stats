@@ -1,16 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Router, Route, IndexRoute, Redirect, browserHistory } from 'react-router'
+import { Router, browserHistory } from 'react-router'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 
-import Chrome from './components/chrome'
-import SignIn from './components/auth/signin'
-import SignUp from './components/auth/signup'
-import ResetPassword from './components/resetPassword/ResetPassword'
-import Home from './components/home'
+import allRoutes from './routes'
 
 import configureStore from './store'
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -27,20 +23,7 @@ const muiTheme = getMuiTheme({
 ReactDOM.render(
   <MuiThemeProvider muiTheme={ muiTheme }>
     <Provider store={ configureStore() }>
-      <Router history={ browserHistory }>
-        <Route path='/'
-               component={ Chrome }>
-          <IndexRoute component={ Home } />
-          <Route path='signin'
-                 component={ SignIn } />
-          <Route path='signup'
-                 component={ SignUp } />
-          <Route path='reset-password'
-                 component={ ResetPassword } />
-          <Redirect from="*"
-                    to='/' />
-        </Route>
-      </Router>
+      <Router history={ browserHistory } routes={ allRoutes } />
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('react-root')

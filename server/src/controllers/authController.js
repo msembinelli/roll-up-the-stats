@@ -69,7 +69,7 @@ export const resendVerification = (req, res, next) => {
 /**
  * Verify email
  */
-export const verifiEmail = (req, res, next) => {
+export const verifyEmail = (req, res, next) => {
   const { email, token } = req.body;
 
   User.findOne({ email }, (err, user) => {

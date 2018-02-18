@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../actions/auth';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/auth'
 import styles from '../../styles/bundle.scss'
 
 class VerifyEmail extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.state = { resend: false };
+    this.state = { resend: false }
+    this.resendEmail = this.resendEmail.bind(this)
   }
 
   componentWillMount() {
-    const { email, token } =  this.props.location.query;
+    const { email, token } =  this.props.location.query
 
-    this.user = {};
-    this.user.email = email;
-    this.user.token = token;
+    this.user = {}
+    this.user.email = email
+    this.user.token = token
 
-    this.props.verifyEmail({ email, token });
+    this.props.verifyEmail({ email, token })
   }
 
   resendEmail(props) {
-    this.setState({ resend: true });
-    this.props.resendVerification(props);
+    this.setState({ resend: true })
+    this.props.resendVerification(props)
   }
 
   render() {
@@ -38,7 +39,7 @@ class VerifyEmail extends Component {
         }
         {
           this.props.errorMessage && this.props.errorMessage.verifyEmail && this.props.errorMessage.verifyEmail.resend && !this.state.resend &&
-            <p className={ styles.resend } onClick={this.resendEmail.bind(this, this.user)}>
+            <p className={ styles.resend } onClick={ this.resendEmail }>
               Resend verification code
             </p>
           }
@@ -54,7 +55,7 @@ class VerifyEmail extends Component {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
+  return { errorMessage: state.auth.error }
 }
 
-export default connect(mapStateToProps, actions)(VerifyEmail);
+export default connect(mapStateToProps, actions)(VerifyEmail)

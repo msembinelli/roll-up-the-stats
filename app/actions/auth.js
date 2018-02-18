@@ -81,7 +81,7 @@ export function verifyEmail(props) {
 
         dispatch({ type: AUTH_USER })
 
-        browserHistory.push('/users')
+        browserHistory.push('/') // TODO push to user page
       })
       .catch(response => dispatch(authError(VERIFY_EMAIL_ERROR, response.data.error)))
   }

@@ -28,7 +28,7 @@ export function resetPassword(props) {
       .then(() => {
         dispatch({ type: RESET_PASSWORD_SUCCESS })
 
-        browserHistory.push(`/reduxauth/reset-password/verify?email=${props.email}`)
+        browserHistory.push(`/reset-password/verify?email=${props.email}`)
       })
       .catch(response => {
         dispatch(authError(RESET_PASSWORD_FAILURE, response.data.error))
@@ -62,7 +62,7 @@ export function resetPasswordNew(props) {
 
         dispatch({ type: AUTH_USER })
 
-        browserHistory.push('/reduxauth/users')
+        browserHistory.push('/users')
       })
       .catch(response => dispatch(authError(VERIFY_RESET_PASSWORD_FAILURE, response.data)))
   }

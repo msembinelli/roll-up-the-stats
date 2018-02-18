@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
-import * as actions from '../../actions/resetPassword';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { reduxForm, Field } from 'redux-form'
+import * as actions from '../../actions/resetPassword'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
 import styles from '../../styles/bundle.scss'
 
 const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
@@ -10,32 +10,32 @@ const renderField = ({ input, type, placeholder, meta: { touched, error } }) => 
     <input type={ type } placeholder={ placeholder } { ...input } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
-);
+)
 
 class ResetPasswordNew extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   componentWillMount() {
-    const { email, token } = this.props.location.query;
+    const { email, token } = this.props.location.query
 
-    this.props.verifyResetPassword({ email, token });
+    this.props.verifyResetPassword({ email, token })
   }
 
   handleFormSubmit(props) {
-    const { email, token } = this.props.location.query;
+    const { email, token } = this.props.location.query
 
-    props.email = email;
-    props.token = token;
+    props.email = email
+    props.token = token
 
-    this.props.resetPasswordNew(props);
+    this.props.resetPasswordNew(props)
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit } = this.props
 
     return (
       <div className={ styles.formcontainer }>
@@ -52,12 +52,12 @@ class ResetPasswordNew extends Component {
             </div>
             :
             /* New password form */
-            <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-              {/* New password */}
-              <Field name="newpassword" component={renderField} type="password" placeholder="New password" />
+            <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
+              { /* New password */ }
+              <Field name="newpassword" component={ renderField } type="password" placeholder="New password" />
 
-              {/* Repeat new password */}
-              <Field name="renewpassword" component={renderField} type="password" placeholder="Repeat New password" />
+              { /* Repeat new password */ }
+              <Field name="renewpassword" component={ renderField } type="password" placeholder="Repeat New password" />
 
               {
                 /* Server error message */
@@ -65,7 +65,7 @@ class ResetPasswordNew extends Component {
                   <div className={ styles.errorcontainer }>{ this.props.errorMessage.verifyResetPassword.message }</div>
               }
 
-              {/* Submit button */}
+              { /* Submit button */ }
               <button type="submit" className={ styles.btn }>Submit</button>
             </form>
          }
@@ -75,30 +75,30 @@ class ResetPasswordNew extends Component {
 }
 
 function validate(props) {
-  const errors = {};
-  const fields = ['newpassword', 'renewpassword'];
+  const errors = {}
+  const fields = [ 'newpassword', 'renewpassword' ]
 
   fields.forEach((f) => {
     if(!(f in props)) {
-      errors[f] = `${f} is required`;
+      errors[f] = `${f} is required`
     }
-  });
+  })
 
   if(props.newpassword && props.newpassword.length < 6) {
-    errors.newpassword = "minimum 6 characters";
+    errors.newpassword = 'minimum 6 characters'
   }
 
   if(props.newpassword !== props.renewpassword) {
-    errors.renewpassword = "passwords doesn't match";
+    errors.renewpassword = "passwords doesn't match"
   }
 
-  return errors;
+  return errors
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.resetPass.error };
+  return { errorMessage: state.resetPass.error }
 }
 
-ResetPasswordNew = reduxForm({ form: 'resetnewpassword', validate })(ResetPasswordNew);
-
-export default connect(mapStateToProps, actions)(ResetPasswordNew);
+export default connect(mapStateToProps, actions)(
+  reduxForm({ form: 'resetnewpassword', validate })(ResetPasswordNew)
+)

@@ -11,8 +11,9 @@ import ResetPassword from './components/resetPassword/ResetPassword'
 import ResetPasswordVerify from './components/resetPassword/ResetPasswordVerify'
 import ResetPasswordNew from './components/resetPassword/ResetPasswordNew'
 import Home from './components/home'
+import Add from './components/new/Add'
 
-// import requireAuth from './components/hoc/RequireAuth'
+import requireAuth from './components/hoc/RequireAuth'
 import requireNotAuth from './components/hoc/RequireNotAuth'
 
 export default (
@@ -26,6 +27,7 @@ export default (
     <Route path="reset-password" component={ requireNotAuth(ResetPassword) } />
     <Route path="reset-password/verify" component={ ResetPasswordVerify } />
     <Route path="reset-password/new" component={ requireNotAuth(ResetPasswordNew) } />
+    <Route path="new" component={ requireAuth(Add) } />
     <Redirect from="*" to='/' />
     { /* <Route path="users" component={requireAuth(UserList)} /> */ }
   </Route>

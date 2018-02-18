@@ -21,6 +21,7 @@ export default function Home() {
               <TableHeaderColumn>Size</TableHeaderColumn>
               <TableHeaderColumn>Win</TableHeaderColumn>
               <TableHeaderColumn>Prize</TableHeaderColumn>
+              <TableHeaderColumn>Comment</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={ false }>
@@ -30,6 +31,7 @@ export default function Home() {
               <TableRowColumn>Large</TableRowColumn>
               <TableRowColumn>No</TableRowColumn>
               <TableRowColumn>None</TableRowColumn>
+              <TableRowColumn>None</TableRowColumn>
             </TableRow>
             <TableRow>
               <TableRowColumn>Randal White</TableRowColumn>
@@ -37,6 +39,7 @@ export default function Home() {
               <TableRowColumn>Small</TableRowColumn>
               <TableRowColumn>Yes</TableRowColumn>
               <TableRowColumn>Coffee</TableRowColumn>
+              <TableRowColumn>YES!</TableRowColumn>
             </TableRow>
           </TableBody>
         </Table>

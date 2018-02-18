@@ -14,6 +14,18 @@ input[type='text'], input[type='password'] {
   }
 }
 
+select {
+  border-radius: 5px;
+  border: 1px solid $gray;
+  height: 40px;
+  width: 100%;
+  padding-left: 2%;
+
+  &:focus {
+    border: 1px solid $blue;
+  }
+}
+
 .haserror {
   input[type='text'], input[type='password'] {
     border: 1px solid $red;

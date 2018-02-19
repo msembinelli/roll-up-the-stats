@@ -14,7 +14,7 @@ input[type='text'], input[type='password'] {
   }
 }
 
-rw-input{
+.inputoverride input[type='text']{
   border: 0;
 }
 

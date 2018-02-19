@@ -24,17 +24,14 @@ const renderDropdownList = ({ input, data, placeholder, meta: { touched, error }
   <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
     <h4>{ placeholder }</h4>
       <DropdownList { ...input }
+        value={ data[0] }
         data={ data }
         onChange={ input.onChange } />
-
-    {/* <select onChange={ input.onChange }>
-      { data.map(element => <option key={ element.id }>{ element }</option>) }
-    </select>  */}
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
 
 const renderDateTimePicker = ({ placeholder, meta: { touched, error } }) =>
-  <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+  <div className={ `${ styles.inputoverride } ${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
     <h4>{ placeholder }</h4>
     <DateTimePicker
       editFormat={ formatter } 

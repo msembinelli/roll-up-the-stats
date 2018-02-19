@@ -2,12 +2,13 @@ import 'react-widgets/dist/css/react-widgets.css'
 import styles from '../../styles/bundle.scss'
 
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import Globalize from 'globalize'
 import globalizeLocalizer from 'react-widgets-globalize'
 import DropdownList from 'react-widgets/lib/DropdownList'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
-import * as actions from '../../actions/auth'
+import { sendEntry } from '../../actions/entries'
 import { connect } from 'react-redux'
 import {
   sizes,
@@ -29,14 +30,15 @@ const renderDropdownList = ({ input, data, placeholder, meta: { touched, error }
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
 
-const renderDateTimePicker = ({ placeholder, meta: { touched, error } }) =>
+const renderDateTimePicker = ({ input: { value, onChange }, placeholder, meta: { touched, error } }) =>
   <div className={ `${ styles.inputoverride } ${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
     <h4>{ placeholder }</h4>
     <DateTimePicker
+      onChange={ onChange }
       editFormat={ formatter } 
-      defaultValue={ new Date() }
-      format={ { raw: 'MMM dd, yyyy' } }
       time={ false }
+      value={ !value ? null : new Date(value) }
+      defaultValue={ new Date() }
      />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -57,12 +59,11 @@ class Add extends Component {
     this.renderPrize = this.renderPrize.bind(this)
   }
 
-  handleFormSubmit(/*formProps*/) {
-    // this.props.signupUser(formProps)
+  handleFormSubmit(formProps) {
+    this.props.sendEntry(formProps)
   }
 
   renderPrize(formProps) {
-    console.log(formProps)
     this.props.win(formProps)
   }
 
@@ -84,7 +85,6 @@ class Add extends Component {
           <Field name="win" component={ renderDropdownList } data={ wins } type="text" placeholder="Win" />
 
           { /* Prize */ }
-          { /* { console.log(isWin) } */ }
           { isWin === 'Yes' ? (
             <Field name="prize" component={ renderDropdownList } data={ prizes } type="text" placeholder="Prize" />
           ) : null }
@@ -94,7 +94,7 @@ class Add extends Component {
 
           { /* Server error message */ }
           <div>
-            { this.props.errorMessage && this.props.errorMessage.signup &&
+            { this.props.errorMessage && this.props.errorMessage.entry &&
                 <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
           </div>
 
@@ -116,33 +116,9 @@ const validate = props => {
     }
   })
 
-  // if(props.firstname && props.firstname.length < 3) {
-  //   errors.firstname = 'minimum of 4 characters'
-  // }
-
-  // if(props.firstname && props.firstname.length > 20) {
-  //   errors.firstname = 'maximum of 20 characters'
-  // }
-
-  // if(props.lastname && props.lastname.length < 3) {
-  //   errors.lastname = 'minimum of 4 characters'
-  // }
-
-  // if(props.lastname && props.lastname.length > 20) {
-  //   errors.lastname = 'maximum of 20 characters'
-  // }
-
-  // if(props.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(props.email)) {
-  //   errors.email = 'please provide valid email'
-  // }
-
-  // if(props.password && props.password.length < 6) {
-  //   errors.password = 'minimum 6 characters'
-  // }
-
-  // if(props.password !== props.repassword) {
-  //   errors.repassword = "passwords doesn't match"
-  // }
+  if(props.comment && props.comment.length > 144) {
+    errors.comment = 'max of 144 characters'
+  }
 
   return errors
 }
@@ -153,6 +129,10 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error, isWin: selector(state, 'win') }
 }
 
-export default connect(mapStateToProps, actions)(
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ sendEntry }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   reduxForm({ form: 'add', validate })(Add)
 )

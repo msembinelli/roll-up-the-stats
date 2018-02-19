@@ -10,7 +10,7 @@ import SignupVerify from './components/auth/SignupVerify'
 import ResetPassword from './components/resetPassword/ResetPassword'
 import ResetPasswordVerify from './components/resetPassword/ResetPasswordVerify'
 import ResetPasswordNew from './components/resetPassword/ResetPasswordNew'
-import Home from './components/home'
+import Home from './components/home/Home'
 import Add from './components/new/Add'
 import Verified from './components/auth/Verified'
 

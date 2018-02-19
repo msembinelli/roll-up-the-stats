@@ -5,3 +5,4 @@ node_modules/
 karma-*
 .env
 server/data/
+.tmp-globalize-webpack/

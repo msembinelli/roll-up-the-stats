@@ -1,5 +1,12 @@
+import 'react-widgets/dist/css/react-widgets.css'
+import styles from '../../styles/bundle.scss'
+
 import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
+import Globalize from 'globalize'
+import globalizeLocalizer from 'react-widgets-globalize'
+import DropdownList from 'react-widgets/lib/DropdownList'
+import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import * as actions from '../../actions/auth'
 import { connect } from 'react-redux'
 import {
@@ -8,27 +15,35 @@ import {
   prizes,
 } from './types/index'
 
-import styles from '../../styles/bundle.scss'
+Globalize.locale('en')
+globalizeLocalizer()
 
-const renderDropdownList = ({ data, placeholder, disabled, meta: { touched, error } }) =>
+let formatter = Globalize.dateFormatter({ date: 'short' })
+
+const renderDropdownList = ({ input, data, placeholder, meta: { touched, error } }) =>
   <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
     <h4>{ placeholder }</h4>
-    <select disabled={ disabled }>
+      <DropdownList { ...input }
+        data={ data }
+        onChange={ input.onChange } />
+
+    {/* <select onChange={ input.onChange }>
       { data.map(element => <option key={ element.id }>{ element }</option>) }
-    </select> 
+    </select>  */}
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
 
-// const renderDateTimePicker = ({ input: { onChange, value }, showTime, meta: { touched, error } }) =>
-//   <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
-//     <DateTimePicker
-//       onChange={ onChange }
-//       format="DD/MM/YYYY"
-//       time={ showTime }
-//       value={ !value ? null : new Date(value) }
-//     />
-//     { touched && error && <div className={ styles.formerror }>{ error }</div> }
-//   </div>
+const renderDateTimePicker = ({ placeholder, meta: { touched, error } }) =>
+  <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+    <h4>{ placeholder }</h4>
+    <DateTimePicker
+      editFormat={ formatter } 
+      defaultValue={ new Date() }
+      format={ { raw: 'MMM dd, yyyy' } }
+      time={ false }
+     />
+    { touched && error && <div className={ styles.formerror }>{ error }</div> }
+  </div>
 
 const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
   <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
@@ -43,14 +58,20 @@ class Add extends Component {
     super(props)
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.renderPrize = this.renderPrize.bind(this)
   }
 
   handleFormSubmit(/*formProps*/) {
     // this.props.signupUser(formProps)
   }
 
+  renderPrize(formProps) {
+    console.log(formProps)
+    this.props.win(formProps)
+  }
+
   render() {
-    const { handleSubmit } = this.props
+    const { handleSubmit, isWin } = this.props
 
     return (
       <div className={ styles.formcontainer }>
@@ -58,17 +79,19 @@ class Add extends Component {
         <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
 
           { /* Date */ }
-          <Field name="date" component={ renderField } type="text" placeholder="Date" />
+          <Field name="date" component={ renderDateTimePicker } type="date" placeholder="Date" />
 
           { /* Size */ }
-          <Field name="size" component={ renderDropdownList } data={ sizes } disabled={ false } type="text" placeholder="Size" />
+          <Field name="size" component={ renderDropdownList } data={ sizes } type="text" placeholder="Size" />
 
           { /* Win */ }
-          <Field name="win" component={ renderDropdownList } data={ wins } disabled={ false } type="text" placeholder="Win" />
+          <Field name="win" component={ renderDropdownList } data={ wins } type="text" placeholder="Win" />
 
           { /* Prize */ }
-          { console.log(this.props) }
-          <Field name="prize" component={ renderDropdownList } data={ prizes } disabled={ true } type="text" placeholder="Prize" />
+          { /* { console.log(isWin) } */ }
+          { isWin === 'Yes' ? (
+            <Field name="prize" component={ renderDropdownList } data={ prizes } type="text" placeholder="Prize" />
+          ) : null }
 
           { /* Comment */ }
           <Field name="comment" component={ renderField } type="text" placeholder="Comment" />
@@ -128,11 +151,12 @@ const validate = props => {
   return errors
 }
 
+const selector = formValueSelector('add')
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error }
+  return { errorMessage: state.auth.error, isWin: selector(state, 'win') }
 }
 
 export default connect(mapStateToProps, actions)(
-  reduxForm({ form: 'new', validate })(Add)
+  reduxForm({ form: 'add', validate })(Add)
 )

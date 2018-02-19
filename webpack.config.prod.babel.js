@@ -11,7 +11,7 @@ export default {
   entry: [ './app' ],
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss'],
     modules: [
       resolve('./app'),
       "node_modules"
@@ -26,7 +26,7 @@ export default {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -45,8 +45,9 @@ export default {
           ],
         }),
       },
-      { test: /\.(png|gif|ttf|eot|svg|woff|woff2?)$/,
-        loader: 'url-loader?limit=100000'
+      {
+        test: /\.(png|gif|ttf|eot|svg|woff|woff2?)$/,
+        loader: 'url-loader?name=[name].[ext]'
       },
       {
         test: /\.js?$/,

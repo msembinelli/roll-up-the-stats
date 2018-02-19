@@ -1,6 +1,7 @@
 import { join, resolve } from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import GlobalizePlugin from 'react-globalize-webpack-plugin'
 
 
 export default {
@@ -33,11 +34,16 @@ export default {
         },
       },
       {
+        test: /\.css$/,
+        loader: [ 'style-loader', 'css-loader' ],
+      },
+      {
         test: /\.scss$/,
         loader: [ 'style-loader', 'css-loader?modules&camelCase&sourceMap&localIdentName=[name]_[local]', 'sass-loader' ],
       },
-      { test: /\.(png|gif|ttf|eot|svg|woff|woff2?)$/,
-        loader: 'url-loader?limit=100000'
+      {
+        test: /\.(png|gif|ttf|eot|svg|woff|woff2?)$/,
+        loader: 'url-loader?name=[name].[ext]'
       },
       {
         test: /\.js$/,
@@ -53,7 +59,7 @@ export default {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.scss'],
     modules: [
       resolve(__dirname, './app'),
       "node_modules"
@@ -81,5 +87,12 @@ export default {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
       },
     }),
+    new GlobalizePlugin({
+			production: false,
+			developmentLocale: "en",
+			supportedLocales: [ "en" ],
+			messages: "messages/[locale].json",
+			output: "i18n/[locale].[hash].js"
+		})
   ],
 }

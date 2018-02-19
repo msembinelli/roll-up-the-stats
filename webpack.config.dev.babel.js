@@ -18,37 +18,45 @@ export default {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'react-hot',
+        loader: 'react-hot-loader',
       },
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           cacheDirectory: '/tmp',
         },
       },
       {
         test: /\.scss$/,
-        loaders: [ 'style-loader', 'css?modules&camelCase&sourceMap&localIdentName=[name]_[local]!sass' ],
+        loader: [ 'style-loader', 'css-loader?modules&camelCase&sourceMap&localIdentName=[name]_[local]', 'sass-loader' ],
       },
-    ],
-    preLoaders: [
+      { test: /\.(png|gif|ttf|eot|svg|woff|woff2?)$/,
+        loader: 'url-loader?limit=100000'
+      },
       {
         test: /\.js$/,
         loader: 'eslint-loader',
+        enforce: 'pre',
         exclude: /node_modules/,
+        options: {
+          configFile: '.eslintrc',
+          fix: true,
+        },
       },
     ],
   },
 
   resolve: {
-    root: [
+    extensions: ['.js', '.jsx'],
+    modules: [
       resolve(__dirname, './app'),
+      "node_modules"
     ],
   },
 
@@ -74,9 +82,4 @@ export default {
       },
     }),
   ],
-
-  eslint: {
-    configFile: '.eslintrc',
-    fix: true,
-  },
 }

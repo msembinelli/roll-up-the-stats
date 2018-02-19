@@ -12,8 +12,10 @@ export default {
   entry: [ './app' ],
 
   resolve: {
-    root: [
+    extensions: ['.js', '.jsx'],
+    modules: [
       resolve('./app'),
+      "node_modules"
     ],
   },
 
@@ -23,25 +25,33 @@ export default {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           cacheDirectory: '/tmp',
         },
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader','css?modules&camelCase&sourceMap&localIdentName=[name]_[local]!sass'),
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&camelCase&sourceMap&localIdentName=[name]_[local]', 'sass-loader'),
       },
-    ],
-    preLoaders: [
+      { test: /\.(png|gif|ttf|eot|svg|woff|woff2?)$/,
+        loader: 'url-loader?limit=100000'
+      },
       {
         test: /\.js$/,
         loader: 'eslint-loader',
+        enforce: 'pre',
         exclude: /node_modules/,
+        options: {
+          emitError: true,
+          failOnError: true,
+          configFile: '.eslintrc',
+          fix: false,
+        },
       },
     ],
   },
@@ -56,7 +66,7 @@ export default {
     failPlugin,
     new webpack.optimize.AggressiveMergingPlugin(),
     new HtmlWebpackPlugin({ template: 'index.html' }),
-    new ExtractTextPlugin('style.[chunkhash].css', { allChunks: true }),
+    new ExtractTextPlugin({ allChunks: true, filename: 'style.[chunkhash].css' }),
     new CopyWebpackPlugin([
       {
         context: 'assets',
@@ -70,11 +80,4 @@ export default {
       },
     }),
   ],
-
-  eslint: {
-    emitError: true,
-    failOnError: true,
-    configFile: '.eslintrc',
-    fix: false,
-  },
 }

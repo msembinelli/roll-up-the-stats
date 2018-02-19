@@ -24,7 +24,6 @@ const renderDropdownList = ({ input, data, placeholder, meta: { touched, error }
   <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
     <h4>{ placeholder }</h4>
       <DropdownList { ...input }
-        value={ data[0] }
         data={ data }
         onChange={ input.onChange } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }

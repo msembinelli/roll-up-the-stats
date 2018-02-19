@@ -1,19 +1,30 @@
 import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
+import { setRedirectUrl } from '../../actions/auth'
 
 export default function (ComposedComponent) {
   class Authentication extends Component {
-    componentWillMount() {
-      if (!this.props.authenticated) {
+    constructor(props) {
+      super(props)
+    }
+
+    authenticateFirst(authenticated, url, setUrlFunc) {
+      if (!authenticated) {
+        setUrlFunc(url)
         browserHistory.push('/signin')
       }
     }
 
+    componentWillMount() {
+      const { authenticated, setRedirectUrl, location } = this.props
+      this.authenticateFirst(authenticated, location.pathname, setRedirectUrl)
+    }
+
     componentWillUpdate(nextProps) {
-      if (!nextProps.authenticated) {
-        browserHistory.push('/signin')
-      }
+      const { setRedirectUrl, location } = this.props
+      this.authenticateFirst(nextProps.authenticated, location.pathname, setRedirectUrl)
     }
 
     render() {
@@ -27,5 +38,9 @@ export default function (ComposedComponent) {
     return { authenticated: state.auth.authenticated }
   }
 
-  return connect(mapStateToProps)(Authentication)
+  function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ setRedirectUrl }, dispatch)
+  }
+
+  return connect(mapStateToProps, mapDispatchToProps)(Authentication)
 }

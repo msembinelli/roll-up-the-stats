@@ -6,6 +6,7 @@ import {
   SIGNIN_FAILURE,
   AUTH_USER,
   UNAUTH_USER,
+  SET_REDIRECT_URL,
 } from '../actions/types'
 
 export default function(state = {}, action) {
@@ -24,6 +25,8 @@ export default function(state = {}, action) {
       return { ...state, authenticated: true, error: {} }
     case UNAUTH_USER:
       return { ...state, authenticated: false, error: {} }
+    case SET_REDIRECT_URL:
+      return { ...state, redirectUrl: action.payload, error: {} }
   }
 
   return state

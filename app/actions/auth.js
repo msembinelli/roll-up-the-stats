@@ -9,6 +9,7 @@ import {
   SIGNIN_FAILURE,
   AUTH_USER,
   UNAUTH_USER,
+  SET_REDIRECT_URL,
 } from './types/index'
 
 /**
@@ -40,7 +41,7 @@ export function signupUser(props) {
  * Sign in
  */
 export function signinUser(props) {
-  const { email, password } = props
+  const { email, password, nextUrlPath } = props
 
   return function (dispatch) {
     axios.post(`${API_URL}/signin`, { email, password })
@@ -49,12 +50,11 @@ export function signinUser(props) {
 
         dispatch({ type: AUTH_USER })
 
-        browserHistory.push('/users')
+        browserHistory.push(nextUrlPath)
       })
       .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")))
   }
 }
-
 
 /**
  * Resend verification code
@@ -69,7 +69,6 @@ export function resendVerification(props) {
   }
 }
 
-
 /**
  * Verify email
  */
@@ -79,11 +78,19 @@ export function verifyEmail(props) {
       .then(response => {
         localStorage.setItem('user', JSON.stringify(response.data))
 
-        dispatch({ type: AUTH_USER })
-
-        browserHistory.push('/') // TODO push to user page
+        browserHistory.push(`/verified?email=${props.email}`)
       })
       .catch(response => dispatch(authError(VERIFY_EMAIL_ERROR, response.data.error)))
+  }
+}
+
+/**
+ * Set redirect URL after signin
+ */
+export function setRedirectUrl(url) {
+  return {
+    type: SET_REDIRECT_URL,
+    payload: url,
   }
 }
 

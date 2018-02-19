@@ -20,6 +20,7 @@ class Signin extends Component {
   }
 
   handleFormSubmit(props) {
+    props.nextUrlPath = this.props.nextUrlPath
     this.props.signinUser(props)
   }
 
@@ -75,7 +76,7 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error }
+  return { errorMessage: state.auth.error, nextUrlPath: state.auth.redirectUrl }
 }
 
 export default connect(mapStateToProps, actions)(

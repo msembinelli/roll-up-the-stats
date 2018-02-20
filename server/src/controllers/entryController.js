@@ -19,7 +19,6 @@ export const fetchEntries = (req, res, next) => {
  * Make an entry
  */
 export const makeEntry = (req, res, next) => {
-  console.log(req.body)
   const { firstname, lastname, email, date, size, win, prize, comment } = req.body;
 
   if (!firstname || !lastname || !email || !date || !size || !win) {

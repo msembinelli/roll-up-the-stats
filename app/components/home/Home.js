@@ -63,8 +63,8 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps({ entryList }) {
-  return { entryList }
+function mapStateToProps(state) {
+  return { entryList: state.entry.entryList }
 }
 
 function mapDispatchToProps(dispatch) {

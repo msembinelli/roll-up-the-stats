@@ -15,15 +15,42 @@ import {
 class Home extends Component {
   constructor(props) {
     super(props)
+
+    this.state = { timer: null }
   }
 
   componentWillMount() {
     this.props.fetchEntries()
+    this.setState({ timer: setInterval(this.props.fetchEntries.bind(this), 5000) })
+  }
+
+  componentWillUnmount() {
+    setInterval(this.state.timer)
+  }
+
+  renderTableRow(entry) {
+    return (
+      <TableRow key={ entry.id }>
+        <TableRowColumn>{ `${entry.firstname} ${entry.lastname}` }</TableRowColumn>
+        <TableRowColumn>{ new Date(entry.date).toLocaleDateString() }</TableRowColumn>
+        <TableRowColumn>{ entry.size }</TableRowColumn>
+        <TableRowColumn>{ entry.win }</TableRowColumn>
+        <TableRowColumn>{ entry.prize }</TableRowColumn>
+        <TableRowColumn>{ entry.comment }</TableRowColumn>
+      </TableRow>
+    )
   }
 
   render() {
+
     const { entryList } = this.props
-    console.log(entryList)
+
+    if (!entryList) {
+      return (
+        <div>Loading...</div>
+      )
+    }
+
     return (
       <div>
         <div>
@@ -39,22 +66,7 @@ class Home extends Component {
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={ false }>
-              <TableRow>
-                <TableRowColumn>John Smith</TableRowColumn>
-                <TableRowColumn>February 15</TableRowColumn>
-                <TableRowColumn>Large</TableRowColumn>
-                <TableRowColumn>No</TableRowColumn>
-                <TableRowColumn>None</TableRowColumn>
-                <TableRowColumn>None</TableRowColumn>
-              </TableRow>
-              <TableRow>
-                <TableRowColumn>Randal White</TableRowColumn>
-                <TableRowColumn>February 15</TableRowColumn>
-                <TableRowColumn>Small</TableRowColumn>
-                <TableRowColumn>Yes</TableRowColumn>
-                <TableRowColumn>Coffee</TableRowColumn>
-                <TableRowColumn>YES!</TableRowColumn>
-              </TableRow>
+              { entryList.slice(0).reverse().map(this.renderTableRow) }
             </TableBody>
           </Table>
         </div>

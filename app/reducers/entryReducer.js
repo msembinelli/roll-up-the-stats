@@ -7,7 +7,7 @@ import {
 export default function(state = {}, action) {
   switch(action.type) {
     case FETCH_ENTRIES:
-      return { entryList: action.payload, ...state }
+      return { ...state, entryList: action.payload }
     case ENTRY_SUCCESS:
       return { ...state, error: {} }
     case ENTRY_FAILURE:

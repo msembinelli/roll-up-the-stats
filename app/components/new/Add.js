@@ -109,13 +109,21 @@ class Add extends Component {
 
 const validate = props => {
   const errors = {}
-  const fields = [ 'date', 'size', 'win', 'prize' ]
+  const fields = [ 'date', 'size', 'win' ]
 
   fields.forEach((f) => {
     if(!(f in props)) {
       errors[f] = `${f} is required`
     }
   })
+
+  if(!props.comment) {
+    props.comment = ''
+  }
+
+  if(!props.prize) {
+    props.prize = ''
+  }
 
   if(props.comment && props.comment.length > 144) {
     errors.comment = 'max of 144 characters'

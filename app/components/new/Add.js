@@ -26,6 +26,7 @@ const renderDropdownList = ({ input, data, placeholder, meta: { touched, error }
     <h4>{ placeholder }</h4>
       <DropdownList { ...input }
         data={ data }
+        defaultValue={ data[0] }
         onChange={ input.onChange } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -108,7 +109,7 @@ class Add extends Component {
 
 const validate = props => {
   const errors = {}
-  const fields = [ 'date', 'size', 'win', 'prize', 'comment' ]
+  const fields = [ 'date', 'size', 'win', 'prize' ]
 
   fields.forEach((f) => {
     if(!(f in props)) {

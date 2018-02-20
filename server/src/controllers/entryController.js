@@ -22,9 +22,9 @@ export const makeEntry = (req, res, next) => {
   console.log(req.body)
   const { firstname, lastname, email, date, size, win, prize, comment } = req.body;
 
-  // if (!firstname || !lastname || !email || !date || !size || !win || !prize) {
-  //   return res.status(422).send({ error: "all fields are required" });
-  // }
+  if (!firstname || !lastname || !email || !date || !size || !win) {
+    return res.status(422).send({ error: "all fields are required" });
+  }
 
   Entry.find({}, (err, entries) => {
     if (err) { return next(err); }

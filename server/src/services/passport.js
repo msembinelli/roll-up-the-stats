@@ -16,7 +16,7 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 
       if (!isMatch) { return done(null, false); }
 
-      // if (user.role < 1) { return done(null, false); }
+      if (user.role < 1) { return done(null, false); }
 
       return done(null, user);
     });
@@ -28,7 +28,7 @@ const jwtOptions = {
   secretOrKey: dbConfig.secret,
 };
 
-const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
+const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => { 
   User.findById(payload.sub, (err, user) => {
     if (err) { return done(err, false); }
 

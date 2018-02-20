@@ -40,10 +40,9 @@ export function sendEntry(props) {
   props.firstname = user.firstname
   props.lastname = user.lastname
   props.email = user.email
-  props.headers = { authorization: user.token }
-
+  console.log(props)
   return function (dispatch) {
-    axios.post(`${API_URL}/new`, props)
+    axios.post(`${API_URL}/new`, props, { headers: { authorization: user.token } })
       .then(() => {
         dispatch({ type: ENTRY_SUCCESS })
 

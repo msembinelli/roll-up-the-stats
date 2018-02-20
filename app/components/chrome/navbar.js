@@ -1,7 +1,6 @@
 import React from 'react'
 import ActionHome from 'material-ui/svg-icons/action/home'
 import AddCircle from 'material-ui/svg-icons/content/add-circle'
-import AccountCircle from 'material-ui/svg-icons/action/account-circle'
 import { NavLink } from '../common'
 import styles from '../../styles/navbar.scss'
 
@@ -29,15 +28,6 @@ export default function Navbar() {
       <div className={ styles.navmenuright }>
         <div className={ styles.navlinks }>
           <ul>
-            <li>
-              <NavLink
-                to='/signin'
-                onlyActiveOnIndex>
-                <AccountCircle
-                  className={ styles.homeIcon }
-                  color='#455A64' />
-              </NavLink>
-            </li>
             <li>
               <NavLink
                 to='/new'

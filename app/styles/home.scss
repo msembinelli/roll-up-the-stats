@@ -1,0 +1,14 @@
+@import '~styles/app.scss';
+
+.stats {
+  margin-bottom: 20px;
+  ul {
+    top: -3px;
+    left: 10px;
+    list-style: none;
+    li {
+      position: relative;
+      display: inline-block;
+    }
+  }
+}

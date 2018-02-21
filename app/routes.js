@@ -39,6 +39,5 @@ export default (
     <Route path="new" component={ requireAuth(Add) } />
     <Route path="new/csv" component={ requireAuth(AddCsv) } />
     <Redirect from="*" to="/" />
-    { /* <Route path="users" component={requireAuth(UserList)} /> */ }
   </Route>
 )

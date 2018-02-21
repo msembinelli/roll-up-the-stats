@@ -10,9 +10,22 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table'
-import { Card, CardHeader } from 'material-ui/Card'
+import Up from 'material-ui/svg-icons/action/trending-up'
+import Paper from 'material-ui/Paper'
 import Footer from '../chrome/footer'
 import styles from '../../styles/home.scss'
+
+const iconStyle = {
+  marginTop: 24,
+}
+
+const paperStyle = {
+  height: 180,
+  width: 180,
+  margin: 10,
+  textAlign: 'center',
+  display: 'inline-block',
+}
 
 class Home extends Component {
   constructor(props) {
@@ -119,42 +132,50 @@ class Home extends Component {
     //   }
     // })
 
-    const totalWinsText = `Total Wins: ${wins.length}`
-    const winRate = `Win Rate: ${wins.length / entryList.length}`
-    const mostCommonWinningSize = `Most Common Winning Sizes: ${sizeslabel}`
-    const mostPurchases = 'Most Purchases: '
+    const totalWinsText = `${wins.length}`
+    const winRate = `${(wins.length / entryList.length).toFixed(2)}`
+    const mostCommonWinningSize = `${sizeslabel}`
+    const mostPurchases = 'Matt'
+    const dollarsSpent = '436.28'
+    const daysLeft = '30'
 
     return (
       <div>
         <div className={ styles.homecontainer }>
           <div className={ styles.stats }>
-            <Card expanded={ true }>
-              <ul>
-                <li>
-                  <h3>
-                    <CardHeader>{ totalWinsText }</CardHeader>
-                  </h3>
-                </li>
-                <li>
-                  <h3>
-                    <CardHeader>{ winRate }</CardHeader>
-                  </h3>
-                </li>
-                <li>
-                  <h3>
-                    <CardHeader>{ mostCommonWinningSize }</CardHeader>
-                  </h3>
-                </li>
-                <li>
-                  <h3>
-                    <CardHeader>{ mostPurchases }</CardHeader>
-                  </h3>
-                </li>
-              </ul>
-            </Card>
+            <Paper style={ paperStyle }>
+              <Up style={ iconStyle } />
+              <h4>Total Wins</h4>
+              <p>{ totalWinsText }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Up style={ iconStyle } />
+              <h4>Win Rate</h4>
+              <p>{ winRate }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Up style={ iconStyle } />
+              <h4>Winning Size</h4>
+              <p>{ mostCommonWinningSize }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Up style={ iconStyle } />
+              <h4>Most Purchases</h4>
+              <p>{ mostPurchases }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Up style={ iconStyle } />
+              <h4>Dollars Spent</h4>
+              <p>{ dollarsSpent }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Up style={ iconStyle } />
+              <h4>Days Left</h4>
+              <p>{ daysLeft }</p>
+            </Paper>
           </div>
           <div className={ styles.table }>
-            <Card expanded={ true }>
+            <Paper>
               <Table height="450px" fixedHeader={ true }>
                 <TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
                   <TableRow>
@@ -173,7 +194,7 @@ class Home extends Component {
                     .map(this.renderTableRow) }
                 </TableBody>
               </Table>
-            </Card>
+            </Paper>
           </div>
         </div>
         <Footer />

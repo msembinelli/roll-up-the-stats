@@ -3,6 +3,7 @@ import styles from '../../styles/bundle.scss'
 
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import Globalize from 'globalize'
 import globalizeLocalizer from 'react-widgets-globalize'
@@ -10,29 +11,45 @@ import DropdownList from 'react-widgets/lib/DropdownList'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import { sendEntry } from '../../actions/entries'
 import { connect } from 'react-redux'
-import {
-  sizes,
-  wins,
-  prizes,
-} from './types/index'
+import { sizes, wins, prizes } from './types/index'
 
 Globalize.locale('en')
 globalizeLocalizer()
 
 let formatter = Globalize.dateFormatter({ date: 'short' })
 
-const renderDropdownList = ({ input, data, placeholder, meta: { touched, error } }) =>
-  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
+const renderDropdownList = ({
+  input,
+  data,
+  placeholder,
+  meta: { touched, error },
+}) => (
+  <div
+    className={ `${styles.inputgroup} ${
+      touched && error ? styles.haserror : ''
+    }` }
+  >
     <h4>{ placeholder }</h4>
-    <DropdownList { ...input }
+    <DropdownList
+      { ...input }
       data={ data }
       defaultValue={ data[0] }
-      onChange={ input.onChange } />
+      onChange={ input.onChange }
+    />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
+)
 
-const renderDateTimePicker = ({ input: { value, onChange }, placeholder, meta: { touched, error } }) =>
-  <div className={ `${styles.inputoverride} ${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
+const renderDateTimePicker = ({
+  input: { value, onChange },
+  placeholder,
+  meta: { touched, error },
+}) => (
+  <div
+    className={ `${styles.inputoverride} ${styles.inputgroup} ${
+      touched && error ? styles.haserror : ''
+    }` }
+  >
     <h4>{ placeholder }</h4>
     <DateTimePicker
       onChange={ onChange }
@@ -43,9 +60,19 @@ const renderDateTimePicker = ({ input: { value, onChange }, placeholder, meta: {
     />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
+)
 
-const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
-  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
+const renderField = ({
+  input,
+  type,
+  placeholder,
+  meta: { touched, error },
+}) => (
+  <div
+    className={ `${styles.inputgroup} ${
+      touched && error ? styles.haserror : ''
+    }` }
+  >
     <h4>{ placeholder }</h4>
     <input type={ type } placeholder={ placeholder } { ...input } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
@@ -75,32 +102,71 @@ class Add extends Component {
       <div className={ styles.formcontainer }>
         <h2>Record your win (or loss..)</h2>
         <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
+          { /* Date */ }
+          <Field
+            name="date"
+            component={ renderDateTimePicker }
+            type="date"
+            placeholder="Date"
+          />
 
-          { /* Date */}
-          <Field name="date" component={ renderDateTimePicker } type="date" placeholder="Date" />
+          { /* Size */ }
+          <Field
+            name="size"
+            component={ renderDropdownList }
+            data={ sizes }
+            type="text"
+            placeholder="Size"
+          />
 
-          { /* Size */}
-          <Field name="size" component={ renderDropdownList } data={ sizes } type="text" placeholder="Size" />
+          { /* Win */ }
+          <Field
+            name="win"
+            component={ renderDropdownList }
+            data={ wins }
+            type="text"
+            placeholder="Win"
+          />
 
-          { /* Win */}
-          <Field name="win" component={ renderDropdownList } data={ wins } type="text" placeholder="Win" />
-
-          { /* Prize */}
+          { /* Prize */ }
           { isWin === 'Yes' ? (
-            <Field name="prize" component={ renderDropdownList } data={ prizes } type="text" placeholder="Prize" />
+            <Field
+              name="prize"
+              component={ renderDropdownList }
+              data={ prizes }
+              type="text"
+              placeholder="Prize"
+            />
           ) : null }
 
-          { /* Comment */}
-          <Field name="comment" component={ renderField } type="text" placeholder="Comment" />
+          { /* Comment */ }
+          <Field
+            name="comment"
+            component={ renderField }
+            type="text"
+            placeholder="Comment"
+          />
 
-          { /* Server error message */}
+          { /* Server error message */ }
           <div>
-            { this.props.errorMessage && this.props.errorMessage.entry &&
-              <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
+            { this.props.errorMessage &&
+              this.props.errorMessage.entry && (
+                <div className={ styles.errorcontainer }>
+                  Oops! { this.props.errorMessage.signup }
+                </div>
+              ) }
           </div>
 
-          { /* Submit button */}
-          <button type="submit" className={ styles.btn }>Add</button>
+          { /* Submit button */ }
+          <button type="submit" className={ styles.btn }>
+            Add
+          </button>
+
+          { /* CSV button */ }
+          <div className={ styles.formbottom }>
+            <p>Want to upload a CSV instead?</p>
+            <Link to="/new/csv">Click here</Link>
+          </div>
         </form>
       </div>
     )
@@ -111,7 +177,7 @@ const validate = props => {
   const errors = {}
   const fields = [ 'date', 'size', 'win' ]
 
-  fields.forEach((f) => {
+  fields.forEach(f => {
     if (!(f in props)) {
       errors[f] = `${f} is required`
     }

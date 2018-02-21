@@ -12,6 +12,7 @@ import ResetPasswordVerify from './components/resetPassword/ResetPasswordVerify'
 import ResetPasswordNew from './components/resetPassword/ResetPasswordNew'
 import Home from './components/home/Home'
 import Add from './components/new/Add'
+import AddCsv from './components/new/AddCsv'
 import Verified from './components/auth/Verified'
 
 import requireAuth from './components/hoc/RequireAuth'
@@ -23,14 +24,21 @@ export default (
     <Route path="signin" component={ requireNotAuth(Signin) } />
     <Route path="signup" component={ requireNotAuth(Signup) } />
     <Route path="signout" component={ Signout } />
-    <Route path="signup/verify-email" component={ requireNotAuth(SignupVerify) } />
+    <Route
+      path="signup/verify-email"
+      component={ requireNotAuth(SignupVerify) }
+    />
     <Route path="verify-email" component={ requireNotAuth(VerifyEmail) } />
     <Route path="reset-password" component={ requireNotAuth(ResetPassword) } />
     <Route path="reset-password/verify" component={ ResetPasswordVerify } />
-    <Route path="reset-password/new" component={ requireNotAuth(ResetPasswordNew) } />
+    <Route
+      path="reset-password/new"
+      component={ requireNotAuth(ResetPasswordNew) }
+    />
     <Route path="verified" component={ requireNotAuth(Verified) } />
     <Route path="new" component={ requireAuth(Add) } />
-    <Redirect from="*" to='/' />
-    { /* <Route path="users" component={requireAuth(UserList)} /> */}
+    <Route path="new/csv" component={ requireAuth(AddCsv) } />
+    <Redirect from="*" to="/" />
+    { /* <Route path="users" component={requireAuth(UserList)} /> */ }
   </Route>
 )

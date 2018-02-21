@@ -1,16 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700);
 @import "~styles/app.scss";
 
 .stats {
+  font-family: "Nunito", sans-serif;
+  font-weight: lighter;
+  letter-spacing: 0.5px;
   padding-bottom: 20px;
-  ul {
-    top: -3px;
-    left: 10px;
-    list-style: none;
-    li {
-      position: relative;
-      display: inline-block;
-    }
-  }
 }
 
 .homecontainer {

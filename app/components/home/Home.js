@@ -11,6 +11,11 @@ import {
   TableRowColumn,
 } from 'material-ui/Table'
 import Up from 'material-ui/svg-icons/action/trending-up'
+import Cart from 'material-ui/svg-icons/action/shopping-cart'
+import Calendar from 'material-ui/svg-icons/action/date-range'
+import Money from 'material-ui/svg-icons/editor/attach-money'
+import Pie from 'material-ui/svg-icons/editor/pie-chart'
+import Coffee from 'material-ui/svg-icons/places/free-breakfast'
 import Paper from 'material-ui/Paper'
 import Footer from '../chrome/footer'
 import styles from '../../styles/home.scss'
@@ -149,27 +154,27 @@ class Home extends Component {
               <p>{ totalWinsText }</p>
             </Paper>
             <Paper style={ paperStyle }>
-              <Up style={ iconStyle } />
+              <Pie style={ iconStyle } />
               <h4>Win Rate</h4>
               <p>{ winRate }</p>
             </Paper>
             <Paper style={ paperStyle }>
-              <Up style={ iconStyle } />
-              <h4>Winning Size</h4>
+              <Coffee style={ iconStyle } />
+              <h4>Winning Sizes</h4>
               <p>{ mostCommonWinningSize }</p>
             </Paper>
             <Paper style={ paperStyle }>
-              <Up style={ iconStyle } />
+              <Cart style={ iconStyle } />
               <h4>Most Purchases</h4>
               <p>{ mostPurchases }</p>
             </Paper>
             <Paper style={ paperStyle }>
-              <Up style={ iconStyle } />
+              <Money style={ iconStyle } />
               <h4>Dollars Spent</h4>
               <p>{ dollarsSpent }</p>
             </Paper>
             <Paper style={ paperStyle }>
-              <Up style={ iconStyle } />
+              <Calendar style={ iconStyle } />
               <h4>Days Left</h4>
               <p>{ daysLeft }</p>
             </Paper>

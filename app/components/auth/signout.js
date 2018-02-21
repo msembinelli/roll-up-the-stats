@@ -9,7 +9,12 @@ class Signout extends Component {
   }
 
   render() {
-    return <div className={ styles.content }>We hope to see you again soon...</div>
+    return (
+    <div className={ styles.content }>
+        <h2>Signed out!</h2>
+        <h3>Time to go buy another coffee...</h3>
+     </div>
+    )
   }
 }
 

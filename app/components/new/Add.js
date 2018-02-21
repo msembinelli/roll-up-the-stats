@@ -22,30 +22,30 @@ globalizeLocalizer()
 let formatter = Globalize.dateFormatter({ date: 'short' })
 
 const renderDropdownList = ({ input, data, placeholder, meta: { touched, error } }) =>
-  <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
     <h4>{ placeholder }</h4>
-      <DropdownList { ...input }
-        data={ data }
-        defaultValue={ data[0] }
-        onChange={ input.onChange } />
+    <DropdownList { ...input }
+      data={ data }
+      defaultValue={ data[0] }
+      onChange={ input.onChange } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
 
 const renderDateTimePicker = ({ input: { value, onChange }, placeholder, meta: { touched, error } }) =>
-  <div className={ `${ styles.inputoverride } ${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+  <div className={ `${styles.inputoverride} ${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
     <h4>{ placeholder }</h4>
     <DateTimePicker
       onChange={ onChange }
-      editFormat={ formatter } 
+      editFormat={ formatter }
       time={ false }
       value={ !value ? null : new Date(value) }
       defaultValue={ new Date() }
-     />
+    />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
 
 const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
-  <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
     <h4>{ placeholder }</h4>
     <input type={ type } placeholder={ placeholder } { ...input } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
@@ -76,30 +76,30 @@ class Add extends Component {
         <h2>Record your win (or loss..)</h2>
         <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
 
-          { /* Date */ }
+          { /* Date */}
           <Field name="date" component={ renderDateTimePicker } type="date" placeholder="Date" />
 
-          { /* Size */ }
+          { /* Size */}
           <Field name="size" component={ renderDropdownList } data={ sizes } type="text" placeholder="Size" />
 
-          { /* Win */ }
+          { /* Win */}
           <Field name="win" component={ renderDropdownList } data={ wins } type="text" placeholder="Win" />
 
-          { /* Prize */ }
+          { /* Prize */}
           { isWin === 'Yes' ? (
             <Field name="prize" component={ renderDropdownList } data={ prizes } type="text" placeholder="Prize" />
           ) : null }
 
-          { /* Comment */ }
+          { /* Comment */}
           <Field name="comment" component={ renderField } type="text" placeholder="Comment" />
 
-          { /* Server error message */ }
+          { /* Server error message */}
           <div>
             { this.props.errorMessage && this.props.errorMessage.entry &&
-                <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
+              <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
           </div>
 
-          { /* Submit button */ }
+          { /* Submit button */}
           <button type="submit" className={ styles.btn }>Add</button>
         </form>
       </div>
@@ -112,20 +112,20 @@ const validate = props => {
   const fields = [ 'date', 'size', 'win' ]
 
   fields.forEach((f) => {
-    if(!(f in props)) {
+    if (!(f in props)) {
       errors[f] = `${f} is required`
     }
   })
 
-  if(!props.comment) {
+  if (!props.comment) {
     props.comment = ''
   }
 
-  if(!props.prize) {
+  if (!props.prize) {
     props.prize = ''
   }
 
-  if(props.comment && props.comment.length > 144) {
+  if (props.comment && props.comment.length > 144) {
     errors.comment = 'max of 144 characters'
   }
 

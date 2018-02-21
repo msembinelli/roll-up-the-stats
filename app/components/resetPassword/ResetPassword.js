@@ -28,21 +28,21 @@ class ResetPassword extends Component {
         <h2>Reset Password</h2>
         <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
 
-          { /* Email */ }
+          { /* Email */}
           <div className={ styles.inputgroup }>
-            <Field name="email" type="text" placeholder="Type your email" component={ renderInput }  />
+            <Field name="email" type="text" placeholder="Type your email" component={ renderInput } />
           </div>
 
-          { /* Server error message */ }
+          { /* Server error message */}
           <div>
             { this.props.errorMessage && this.props.errorMessage.resetPassword &&
-                <div className={ styles.errorcontainer }>{ this.props.errorMessage.resetPassword }</div> }
+              <div className={ styles.errorcontainer }>{ this.props.errorMessage.resetPassword }</div> }
           </div>
 
-          { /* Submit button */ }
+          { /* Submit button */}
           <button type="submit" className={ styles.btn }>Submit</button>
         </form>
-       </div>
+      </div>
     )
   }
 }
@@ -52,5 +52,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(
- reduxForm({ form: 'resetpassword' })(ResetPassword)
+  reduxForm({ form: 'resetpassword' })(ResetPassword)
 )

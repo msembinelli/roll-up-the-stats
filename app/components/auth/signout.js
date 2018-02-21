@@ -10,10 +10,10 @@ class Signout extends Component {
 
   render() {
     return (
-    <div className={ styles.content }>
+      <div className={ styles.content }>
         <h2>Signed out!</h2>
         <h3>Time to go buy another coffee...</h3>
-     </div>
+      </div>
     )
   }
 }

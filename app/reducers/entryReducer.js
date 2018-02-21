@@ -4,8 +4,8 @@ import {
   ENTRY_FAILURE,
 } from '../actions/types'
 
-export default function(state = {}, action) {
-  switch(action.type) {
+export default function (state = {}, action) {
+  switch (action.type) {
     case FETCH_ENTRIES:
       return { ...state, entryList: action.payload }
     case ENTRY_SUCCESS:

@@ -31,6 +31,6 @@ export default (
     <Route path="verified" component={ requireNotAuth(Verified) } />
     <Route path="new" component={ requireAuth(Add) } />
     <Redirect from="*" to='/' />
-    { /* <Route path="users" component={requireAuth(UserList)} /> */ }
+    { /* <Route path="users" component={requireAuth(UserList)} /> */}
   </Route>
 )

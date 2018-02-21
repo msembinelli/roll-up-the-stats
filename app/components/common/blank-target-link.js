@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 
 export default function BlankTargetLink({ to, children }) {
-  return <a href={ to }
-            target='_blank'
-            rel='noopener noreferrer'>
-    { children }
+  return <a href={to}
+    target='_blank'
+    rel='noopener noreferrer'>
+    {children}
   </a>
 }
 

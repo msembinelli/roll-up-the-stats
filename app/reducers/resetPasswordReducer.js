@@ -5,8 +5,8 @@ import {
   VERIFY_RESET_PASSWORD_FAILURE,
 } from '../actions/types'
 
-export default function(state = {}, action) {
-  switch(action.type) {
+export default function (state = {}, action) {
+  switch (action.type) {
     case RESET_PASSWORD_SUCCESS:
       return { ...state, resetPassword: true, error: {} }
     case RESET_PASSWORD_FAILURE:

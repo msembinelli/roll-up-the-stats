@@ -12,7 +12,7 @@ class VerifyEmail extends Component {
   }
 
   componentWillMount() {
-    const { email, token } =  this.props.location.query
+    const { email, token } = this.props.location.query
 
     this.user = {}
     this.user.email = email
@@ -31,22 +31,22 @@ class VerifyEmail extends Component {
       <div className={ styles.content }>
         {
           this.props.errorMessage && this.props.errorMessage.verifyEmail &&
-            <div>
-              <h2>Failure</h2>
+          <div>
+            <h2>Failure</h2>
 
-              <p>{ this.props.errorMessage.verifyEmail.message }</p>
-            </div>
+            <p>{ this.props.errorMessage.verifyEmail.message }</p>
+          </div>
         }
         {
           this.props.errorMessage && this.props.errorMessage.verifyEmail && this.props.errorMessage.verifyEmail.resend && !this.state.resend &&
-            <p className={ styles.resend } onClick={ this.resendEmail }>
-              Resend verification code
+          <p className={ styles.resend } onClick={ this.resendEmail }>
+            Resend verification code
             </p>
-          }
+        }
         {
           this.state.resend &&
-            <p className={ styles.resended }>
-              Email verification code has been re-sent
+          <p className={ styles.resended }>
+            Email verification code has been re-sent
             </p>
         }
       </div>

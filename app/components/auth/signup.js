@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import styles from '../../styles/bundle.scss'
 
 const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
-  <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
     <input type={ type } placeholder={ placeholder } { ...input } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -31,31 +31,31 @@ class Signup extends Component {
         <h2>Sign up</h2>
         <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
 
-          { /* Firstname */ }
+          { /* Firstname */}
           <Field name="firstname" component={ renderField } type="text" placeholder="First name" />
 
-          { /* Lastname */ }
+          { /* Lastname */}
           <Field name="lastname" component={ renderField } type="text" placeholder="Last name" />
 
-          { /* Email */ }
+          { /* Email */}
           <Field name="email" component={ renderField } type="text" placeholder="Email" />
 
-          { /* Password */ }
+          { /* Password */}
           <Field name="password" component={ renderField } type="password" placeholder="Password" />
 
-          { /* Email */ }
+          { /* Email */}
           <Field name="repassword" component={ renderField } type="password" placeholder="Repeat Password" />
 
-          { /* Server error message */ }
+          { /* Server error message */}
           <div>
             { this.props.errorMessage && this.props.errorMessage.signup &&
-                <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
+              <div className={ styles.errorcontainer }>Oops! { this.props.errorMessage.signup }</div> }
           </div>
 
-          { /* Submit button */ }
+          { /* Submit button */}
           <button type="submit" className={ styles.btn }>Sign up</button>
 
-          { /* Sign in button */ }
+          { /* Sign in button */}
           <div className={ styles.formbottom }>
             <p>Already signed up?</p>
             <Link to="/signin">Click here to sign in</Link>
@@ -71,36 +71,36 @@ const validate = props => {
   const fields = [ 'firstname', 'lastname', 'email', 'password', 'repassword' ]
 
   fields.forEach((f) => {
-    if(!(f in props)) {
+    if (!(f in props)) {
       errors[f] = `${f} is required`
     }
   })
 
-  if(props.firstname && props.firstname.length < 3) {
+  if (props.firstname && props.firstname.length < 3) {
     errors.firstname = 'minimum of 4 characters'
   }
 
-  if(props.firstname && props.firstname.length > 20) {
+  if (props.firstname && props.firstname.length > 20) {
     errors.firstname = 'maximum of 20 characters'
   }
 
-  if(props.lastname && props.lastname.length < 3) {
+  if (props.lastname && props.lastname.length < 3) {
     errors.lastname = 'minimum of 4 characters'
   }
 
-  if(props.lastname && props.lastname.length > 20) {
+  if (props.lastname && props.lastname.length > 20) {
     errors.lastname = 'maximum of 20 characters'
   }
 
-  if(props.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(props.email)) {
+  if (props.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(props.email)) {
     errors.email = 'please provide valid email'
   }
 
-  if(props.password && props.password.length < 6) {
+  if (props.password && props.password.length < 6) {
     errors.password = 'minimum 6 characters'
   }
 
-  if(props.password !== props.repassword) {
+  if (props.password !== props.repassword) {
     errors.repassword = "passwords doesn't match"
   }
 

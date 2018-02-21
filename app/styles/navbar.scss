@@ -1,19 +1,21 @@
-@import '~styles/app.scss';
+@import url(https://fonts.googleapis.com/css?family=Shadows+Into+Light:300,400,500,600,700);
+@import "~styles/bundle.scss";
 
 .navbar {
+  border-bottom: 1px solid $gray;
+  line-height: 70px;
   min-width: 380px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: $navbar-height;
-  background-color: $grey-light;
+  background-color: $white;
   text-align: center;
   margin: 0 auto 0 auto;
   > div {
     display: inline-block;
   }
-
 }
 
 .navlinks {
@@ -30,10 +32,9 @@
       height: 20px;
       display: inline-block;
       margin-left: 15px;
-      margin-top: 20px;
+      margin-top: 5px;
       svg {
         position: absolute;
-        top: -15px;
         left: 0;
       }
       a {
@@ -57,10 +58,9 @@
 }
 
 .navtitle {
-  margin: 15px 0 30px 40px;
-  text-align: center;
-}
-
-.home-icon {
-  margin-top: 10px;
+  margin: -4px 0 30px 35px;
+  font-family: "Shadows Into Light", sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
 }

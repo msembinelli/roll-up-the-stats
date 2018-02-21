@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import styles from '../../styles/bundle.scss'
 
 const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
-  <div className={ `${ styles.inputgroup } ${ touched && error ? styles.haserror : '' }` }>
+  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
     <input type={ type } placeholder={ placeholder } { ...input } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -47,28 +47,28 @@ class ResetPasswordNew extends Component {
               <h3>{ this.props.errorMessage.verifyResetPassword.message }</h3>
               {
                 this.props.errorMessage.verifyResetPassword.resend &&
-                  <Link className={ styles.resend } to="/reset-password">Reset Password Again</Link>
+                <Link className={ styles.resend } to="/reset-password">Reset Password Again</Link>
               }
             </div>
             :
             /* New password form */
             <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
-              { /* New password */ }
+              { /* New password */}
               <Field name="newpassword" component={ renderField } type="password" placeholder="New password" />
 
-              { /* Repeat new password */ }
+              { /* Repeat new password */}
               <Field name="renewpassword" component={ renderField } type="password" placeholder="Repeat New password" />
 
               {
                 /* Server error message */
                 this.props.errorMessage && this.props.errorMessage.verifyResetPassword &&
-                  <div className={ styles.errorcontainer }>{ this.props.errorMessage.verifyResetPassword.message }</div>
+                <div className={ styles.errorcontainer }>{ this.props.errorMessage.verifyResetPassword.message }</div>
               }
 
-              { /* Submit button */ }
+              { /* Submit button */}
               <button type="submit" className={ styles.btn }>Submit</button>
             </form>
-         }
+        }
       </div>
     )
   }
@@ -79,16 +79,16 @@ function validate(props) {
   const fields = [ 'newpassword', 'renewpassword' ]
 
   fields.forEach((f) => {
-    if(!(f in props)) {
+    if (!(f in props)) {
       errors[f] = `${f} is required`
     }
   })
 
-  if(props.newpassword && props.newpassword.length < 6) {
+  if (props.newpassword && props.newpassword.length < 6) {
     errors.newpassword = 'minimum 6 characters'
   }
 
-  if(props.newpassword !== props.renewpassword) {
+  if (props.newpassword !== props.renewpassword) {
     errors.renewpassword = "passwords doesn't match"
   }
 

@@ -1,18 +1,26 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import ActionHome from 'material-ui/svg-icons/action/home'
 import AddCircle from 'material-ui/svg-icons/content/add-circle'
 import ExitToApp from 'material-ui/svg-icons/action/exit-to-app'
-import { NavLink } from '../common'
+import IconButton from 'material-ui/IconButton'
+import { blue500 } from 'material-ui/styles/colors'
 import styles from '../../styles/navbar.scss'
+
+const iconStyle = {
+  height: '38px',
+  width: '38px',
+}
+
 
 class Navbar extends Component {
   constructor(props) {
     super(props)
   }
 
-  componentWillMount() {}
+  componentWillMount() { }
 
   render() {
     const { authenticated } = this.props
@@ -20,19 +28,20 @@ class Navbar extends Component {
     return (
       <div className={ styles.navbar }>
         <div className={ styles.navtitle }>
-          Roll Up The Stats!
+          roll up the stats
         </div>
         <div className={ styles.navmenuleft }>
           <div className={ styles.navlinks }>
             <ul>
               <li>
-                <NavLink
-                  to='/'
-                  onlyActiveOnIndex>
+                <IconButton
+                  tooltip='Home'
+                  containerElement={ <Link to='/' /> }
+                  iconStyle={ iconStyle } >
                   <ActionHome
-                    className={ styles.homeIcon }
-                    color='#455A64' />
-                </NavLink>
+                    color='#455A64'
+                    hoverColor={ blue500 } />
+                </IconButton>
               </li>
             </ul>
           </div>
@@ -41,24 +50,26 @@ class Navbar extends Component {
           <div className={ styles.navlinks }>
             <ul>
               <li>
-                <NavLink
-                  to='/new'
-                  onlyActiveOnIndex>
+                <IconButton
+                  tooltip='Make an entry'
+                  containerElement={ <Link to='/new' /> }
+                  iconStyle={ iconStyle } >
                   <AddCircle
-                    className={ styles.homeIcon }
-                    color='#455A64' />
-                </NavLink>
+                    color='#455A64'
+                    hoverColor={ blue500 } />
+                </IconButton>
               </li>
               { authenticated ?
-                ( <li>
-                    <NavLink
-                      to='/signout'
-                      onlyActiveOnIndex>
-                      <ExitToApp
-                        className={ styles.homeIcon }
-                        color='#455A64' />
-                    </NavLink>
-                  </li> ) : null }
+                (<li>
+                  <IconButton
+                    tooltip='Sign out'
+                    containerElement={ <Link to='/signout' /> }
+                    iconStyle={ iconStyle } >
+                    <ExitToApp
+                      color='#455A64'
+                      hoverColor={ blue500 } />
+                  </IconButton>
+                </li>) : null }
             </ul>
           </div>
         </div>

@@ -15,7 +15,7 @@ class SignupVerify extends Component {
   componentWillMount() {
     this.email = this.props.location.query.email
 
-    if(!this.props.signup || !this.email) {
+    if (!this.props.signup || !this.email) {
       browserHistory.push('/signin')
     }
   }
@@ -37,7 +37,7 @@ class SignupVerify extends Component {
         }
         {
           this.props.errorMessage && this.props.errorMessage.signupResend &&
-            <div className={ styles.errorcontainer }>{ this.props.errorMessage.signupResend }</div>
+          <div className={ styles.errorcontainer }>{ this.props.errorMessage.signupResend }</div>
         }
       </div>
     )

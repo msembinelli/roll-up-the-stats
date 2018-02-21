@@ -14,7 +14,7 @@ class ResetPasswordVerify extends Component {
   componentWillMount() {
     this.email = this.props.location.query.email
 
-    if(!this.props.resetPasswordProgress || !this.email) {
+    if (!this.props.resetPasswordProgress || !this.email) {
       browserHistory.push('/signin')
     }
   }
@@ -36,7 +36,7 @@ class ResetPasswordVerify extends Component {
         }
         {
           this.props.errorMessage && this.props.errorMessage.resetPassword &&
-            <div className={ styles.errorcontainer }>{ this.props.errorMessage.resetPassword }</div>
+          <div className={ styles.errorcontainer }>{ this.props.errorMessage.resetPassword }</div>
         }
       </div>
     )

@@ -1,7 +1,7 @@
 @import '~styles/app.scss';
 
 .stats {
-  margin-bottom: 20px;
+  padding-bottom: 20px;
   ul {
     top: -3px;
     left: 10px;
@@ -11,4 +11,10 @@
       display: inline-block;
     }
   }
+}
+
+.homecontainer {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0px 20px 20px 20px;
 }

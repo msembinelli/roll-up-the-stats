@@ -6,3 +6,4 @@ karma-*
 .env
 server/data/
 .tmp-globalize-webpack/
+.vscode/

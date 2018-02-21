@@ -9,8 +9,8 @@ import {
   SET_REDIRECT_URL,
 } from '../actions/types'
 
-export default function(state = {}, action) {
-  switch(action.type) {
+export default function (state = {}, action) {
+  switch (action.type) {
     case SIGNUP_SUCCESS:
       return { ...state, signup: true, error: {} }
     case SIGNUP_FAILURE:

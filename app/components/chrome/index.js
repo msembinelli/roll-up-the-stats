@@ -3,12 +3,12 @@ import Navbar from './navbar'
 import styles from '../../styles/chrome.scss'
 
 export default function Chrome({ children }) {
-  return <div>
-    <Navbar />
-    <div className={ styles.chrome }>
-      { children }
+  return (
+    <div>
+      <Navbar />
+      <div className={ styles.chrome }>{ children }</div>
     </div>
-  </div>
+  )
 }
 
 Chrome.propTypes = {

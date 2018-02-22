@@ -11,7 +11,7 @@ import DropdownList from 'react-widgets/lib/DropdownList'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import { sendEntry } from '../../actions/entries'
 import { connect } from 'react-redux'
-import { sizes, wins, prizes } from './types/index'
+import { sizes, wins, prizes, purchased } from './types/index'
 
 Globalize.locale('en')
 globalizeLocalizer()
@@ -33,7 +33,7 @@ const renderDropdownList = ({
     <DropdownList
       { ...input }
       data={ data }
-      defaultValue={ data[0] }
+      value={ !input.value ? data[0] : input.value }
       onChange={ input.onChange }
     />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
@@ -55,8 +55,7 @@ const renderDateTimePicker = ({
       onChange={ onChange }
       editFormat={ formatter }
       time={ false }
-      value={ !value ? null : new Date(value) }
-      defaultValue={ new Date() }
+      value={ !value ? new Date() : new Date(value) }
     />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -119,13 +118,22 @@ class Add extends Component {
             placeholder="Size"
           />
 
+          { /* Purchased */ }
+          <Field
+            name="purchased"
+            component={ renderDropdownList }
+            data={ purchased }
+            type="text"
+            placeholder="Purchased?"
+          />
+
           { /* Win */ }
           <Field
             name="win"
             component={ renderDropdownList }
             data={ wins }
             type="text"
-            placeholder="Win"
+            placeholder="Win?"
           />
 
           { /* Prize */ }
@@ -175,7 +183,7 @@ class Add extends Component {
 
 const validate = props => {
   const errors = {}
-  const fields = [ 'date', 'size', 'win' ]
+  const fields = [ 'date', 'size', 'purchased', 'win' ]
 
   fields.forEach(f => {
     if (!(f in props)) {

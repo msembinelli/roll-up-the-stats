@@ -60,6 +60,7 @@ class Home extends Component {
           { new Date(entry.date).toLocaleDateString() }
         </TableRowColumn>
         <TableRowColumn>{ entry.size }</TableRowColumn>
+        <TableRowColumn>{ entry.purchased }</TableRowColumn>
         <TableRowColumn>{ entry.win }</TableRowColumn>
         <TableRowColumn>{ entry.prize }</TableRowColumn>
         <TableRowColumn>{ entry.comment }</TableRowColumn>
@@ -187,6 +188,7 @@ class Home extends Component {
                     <TableHeaderColumn>Name</TableHeaderColumn>
                     <TableHeaderColumn>Date</TableHeaderColumn>
                     <TableHeaderColumn>Size</TableHeaderColumn>
+                    <TableHeaderColumn>Purchased</TableHeaderColumn>
                     <TableHeaderColumn>Win</TableHeaderColumn>
                     <TableHeaderColumn>Prize</TableHeaderColumn>
                     <TableHeaderColumn>Comment</TableHeaderColumn>

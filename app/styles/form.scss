@@ -2,7 +2,8 @@
   margin-bottom: 14px;
 }
 
-input[type='text'], input[type='password'] {
+input[type="text"],
+input[type="password"] {
   border-radius: 5px;
   border: 1px solid $gray;
   height: 40px;
@@ -14,7 +15,7 @@ input[type='text'], input[type='password'] {
   }
 }
 
-.inputoverride input[type='text'] {
+.inputoverride input[type="text"] {
   border: 0;
 }
 
@@ -31,7 +32,8 @@ select {
 }
 
 .haserror {
-  input[type='text'], input[type='password'] {
+  input[type="text"],
+  input[type="password"] {
     border: 1px solid $red;
   }
 }

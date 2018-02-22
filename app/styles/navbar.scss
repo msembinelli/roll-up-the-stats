@@ -58,7 +58,8 @@
 }
 
 .navtitle {
-  margin: -4px 0 30px 35px;
+  margin: -4px 0 30px -100px;
+  position: fixed;
   font-family: "Shadows Into Light", sans-serif;
   font-size: 32px;
   font-weight: bold;

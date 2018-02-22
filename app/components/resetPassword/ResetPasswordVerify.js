@@ -9,6 +9,7 @@ class ResetPasswordVerify extends Component {
     super(props)
 
     this.state = { resend: false }
+    this.resendEmail = this.resendEmail.bind(this)
   }
 
   componentWillMount() {
@@ -19,32 +20,44 @@ class ResetPasswordVerify extends Component {
     }
   }
 
-  resendEmail = (props) => {
+  resendEmail() {
     this.setState({ resend: true })
-    this.props.resetPassword(props)
+    this.props.resetPassword({ email: this.email })
   }
 
   render() {
     return (
       <div className={ styles.content }>
         <h2>Reset Password</h2>
-        <h3>We've just emailed you password reset instructions at <u>{ this.email && this.email }</u></h3>
-        {
-          !this.state.resend ?
-            <p className={ styles.resend } onClick={ this.resendEmail({ email: this.email }) }>Resend instructions</p> :
-            <p className={ styles.resended }>Reset password instructions has been resended</p>
-        }
-        {
-          this.props.errorMessage && this.props.errorMessage.resetPassword &&
-          <div className={ styles.errorcontainer }>{ this.props.errorMessage.resetPassword }</div>
-        }
+        <h3>
+          We've just emailed you password reset instructions at{ " " }
+          <u>{ this.email && this.email }</u>
+        </h3>
+        { !this.state.resend ? (
+          <p className={ styles.resend } onClick={ this.resendEmail }>
+            Resend instructions
+          </p>
+        ) : (
+          <p className={ styles.resended }>
+            Reset password instructions have been re-sent
+          </p>
+        ) }
+        { this.props.errorMessage &&
+          this.props.errorMessage.resetPassword && (
+            <div className={ styles.errorcontainer }>
+              { this.props.errorMessage.resetPassword }
+            </div>
+          ) }
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  return { resetPasswordProgress: state.resetPass.resetPassword, errorMessage: state.resetPass.error }
+  return {
+    resetPasswordProgress: state.resetPass.resetPassword,
+    errorMessage: state.resetPass.error,
+  }
 }
 
 export default connect(mapStateToProps, actions)(ResetPasswordVerify)

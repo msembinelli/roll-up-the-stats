@@ -5,8 +5,17 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import styles from '../../styles/bundle.scss'
 
-const renderField = ({ input, type, placeholder, meta: { touched, error } }) => (
-  <div className={ `${styles.inputgroup} ${touched && error ? styles.haserror : ''}` }>
+const renderField = ({
+  input,
+  type,
+  placeholder,
+  meta: { touched, error },
+}) => (
+  <div
+    className={ `${styles.inputgroup} ${
+      touched && error ? styles.haserror : ''
+    }` }
+  >
     <input type={ type } placeholder={ placeholder } { ...input } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -40,35 +49,50 @@ class ResetPasswordNew extends Component {
     return (
       <div className={ styles.formcontainer }>
         <h2>Reset Password</h2>
-        {
-          /* Landing error message */
-          this.props.errorMessage && this.props.errorMessage.verifyResetPassword ?
-            <div className={ styles.container }>
-              <h3>{ this.props.errorMessage.verifyResetPassword.message }</h3>
-              {
-                this.props.errorMessage.verifyResetPassword.resend &&
-                <Link className={ styles.resend } to="/reset-password">Reset Password Again</Link>
-              }
-            </div>
-            :
-            /* New password form */
-            <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
-              { /* New password */}
-              <Field name="newpassword" component={ renderField } type="password" placeholder="New password" />
+        {/* Landing error message */
+        this.props.errorMessage &&
+        this.props.errorMessage.verifyResetPassword ? (
+          <div className={ styles.container }>
+            <h3>{ this.props.errorMessage.verifyResetPassword.message }</h3>
+            { this.props.errorMessage.verifyResetPassword.resend && (
+              <Link className={ styles.resend } to="/reset-password">
+                Reset Password Again
+              </Link>
+            ) }
+          </div>
+        ) : (
+          /* New password form */
+          <form onSubmit={ handleSubmit(this.handleFormSubmit) }>
+            { /* New password */ }
+            <Field
+              name="newpassword"
+              component={ renderField }
+              type="password"
+              placeholder="New password"
+            />
 
-              { /* Repeat new password */}
-              <Field name="renewpassword" component={ renderField } type="password" placeholder="Repeat New password" />
+            { /* Repeat new password */ }
+            <Field
+              name="renewpassword"
+              component={ renderField }
+              type="password"
+              placeholder="Repeat New password"
+            />
 
-              {
-                /* Server error message */
-                this.props.errorMessage && this.props.errorMessage.verifyResetPassword &&
-                <div className={ styles.errorcontainer }>{ this.props.errorMessage.verifyResetPassword.message }</div>
-              }
+            {/* Server error message */
+            this.props.errorMessage &&
+              this.props.errorMessage.verifyResetPassword && (
+                <div className={ styles.errorcontainer }>
+                  { this.props.errorMessage.verifyResetPassword.message }
+                </div>
+              ) }
 
-              { /* Submit button */}
-              <button type="submit" className={ styles.btn }>Submit</button>
-            </form>
-        }
+            { /* Submit button */ }
+            <button type="submit" className={ styles.btn }>
+              Submit
+            </button>
+          </form>
+        ) }
       </div>
     )
   }
@@ -78,7 +102,7 @@ function validate(props) {
   const errors = {}
   const fields = [ 'newpassword', 'renewpassword' ]
 
-  fields.forEach((f) => {
+  fields.forEach(f => {
     if (!(f in props)) {
       errors[f] = `${f} is required`
     }

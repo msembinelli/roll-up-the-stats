@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchEntries } from '../../actions/entries'
+import { fetchStats } from '../../actions/stats'
 import {
   Table,
   TableBody,
@@ -12,7 +13,7 @@ import {
 } from 'material-ui/Table'
 import Up from 'material-ui/svg-icons/action/trending-up'
 import Cart from 'material-ui/svg-icons/action/shopping-cart'
-import Calendar from 'material-ui/svg-icons/action/date-range'
+import Flame from 'material-ui/svg-icons/social/whatshot'
 import Money from 'material-ui/svg-icons/editor/attach-money'
 import Pie from 'material-ui/svg-icons/editor/pie-chart'
 import Coffee from 'material-ui/svg-icons/places/free-breakfast'
@@ -39,11 +40,17 @@ class Home extends Component {
     this.state = { timer: null }
   }
 
+  // fetchEntriesAndStats() {
+  //   this.props.fetchEntries()
+  //   this.props.fetchStats()
+  // }
+
   componentWillMount() {
     this.props.fetchEntries()
-    this.setState({
-      timer: setInterval(this.props.fetchEntries.bind(this), 5000),
-    })
+    this.props.fetchStats()
+    // this.setState({
+    //   timer: setInterval(this.fetchEntriesAndStats.bind(this), 5000),
+    // })
   }
 
   componentWillUnmount() {
@@ -54,8 +61,8 @@ class Home extends Component {
     return (
       <TableRow key={ entry.id }>
         <TableRowColumn>{ `${entry.firstname} ${
-          entry.lastname
-        }` }</TableRowColumn>
+          entry.lastname[0]
+        }.` }</TableRowColumn>
         <TableRowColumn>
           { new Date(entry.date).toLocaleDateString() }
         </TableRowColumn>
@@ -63,87 +70,37 @@ class Home extends Component {
         <TableRowColumn>{ entry.purchased }</TableRowColumn>
         <TableRowColumn>{ entry.win }</TableRowColumn>
         <TableRowColumn>{ entry.prize }</TableRowColumn>
+        <TableRowColumn>{ entry.appPrize }</TableRowColumn>
         <TableRowColumn>{ entry.comment }</TableRowColumn>
       </TableRow>
     )
   }
 
   render() {
-    const { entryList } = this.props
+    const { entryList, statsList } = this.props
 
-    if (!entryList) {
+    if (!entryList || !statsList) {
       return <div>Loading...</div>
     }
-    const wins = entryList.filter(entry => {
-      return entry.win === 'Yes'
-    })
 
-    // Beware really crappy code...has to be a better way to do this (probably use a database fetch)
-    // Most common winning sizes
-    const sizeSmall = entryList.filter(entry => {
-      if (entry.win === 'Yes') {
-        return entry.size === 'S'
-      }
-    })
+    console.log(statsList)
+    const totalWinsText = statsList.totalWins
+    const winRate = statsList.winRate.toFixed(2)
+    const mostCommonWinningSize = `${statsList.winningSizes.map(
+      (element, index) =>
+        `${element.size}${statsList.winningSizes[index + 1] ? ',' : ''} `
+    )} (${statsList.winningSizes[0].wins})`
+    const [ statsMostPurchases ] = statsList.mostPurchases
+    const mostPurchases = `${statsMostPurchases._id.firstname} ${
+      statsMostPurchases._id.lastname[0]
+    }. (${statsMostPurchases.count})`
 
-    const sizeMedium = entryList.filter(entry => {
-      if (entry.win === 'Yes') {
-        return entry.size === 'M'
-      }
-    })
+    const [ statsMostWins ] = statsList.mostWins
+    const mostWins = `${statsMostWins._id.firstname} ${
+      statsMostWins._id.lastname[0]
+    }. (${statsMostWins.count})`
 
-    const sizeLarge = entryList.filter(entry => {
-      if (entry.win === 'Yes') {
-        return entry.size === 'L'
-      }
-    })
-
-    const sizeXLarge = entryList.filter(entry => {
-      if (entry.win === 'Yes') {
-        return entry.size === 'XL'
-      }
-    })
-
-    const sizeApp = entryList.filter(entry => {
-      if (entry.win === 'Yes') {
-        return entry.size === 'App'
-      }
-    })
-
-    const sizeWins = [
-      { size: 'S', wins: sizeSmall.length },
-      { size: 'M', wins: sizeMedium.length },
-      { size: 'L', wins: sizeLarge.length },
-      { size: 'XL', wins: sizeXLarge.length },
-      { size: 'App', wins: sizeApp.length },
-    ]
-
-    const mostWins = sizeWins.reduce(
-      (max, p) => (p.wins > max ? p.wins : max),
-      sizeWins[0].wins
-    )
-    let sizeslabel = ''
-    sizeWins.filter(entry => {
-      if (entry.wins === mostWins) {
-        if (entry.size) {
-          sizeslabel += entry.size + ', '
-        }
-      }
-    })
-
-    // Most purchases
-    // const topPurchaser = entryList.filter( entry => {
-    //   if ( entry.win === 'Yes') {
-    //     return entry.size === 'App'
-    //   }
-    // })
-
-    const totalWinsText = `${wins.length}`
-    const winRate = `${(wins.length / entryList.length).toFixed(2)}`
-    const mostCommonWinningSize = `${sizeslabel}`
-    const mostPurchases = 'Matt'
-    const dollarsSpent = '436.28'
-    const daysLeft = '30'
+    const dollarsSpent = statsList.dollarsSpent.toFixed(2)
 
     return (
       <div>
@@ -170,17 +127,17 @@ class Home extends Component {
               <p>{ mostPurchases }</p>
             </Paper>
             <Paper style={ paperStyle }>
+              <Flame style={ iconStyle } />
+              <h4>Most Wins</h4>
+              <p>{ mostWins }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
               <Money style={ iconStyle } />
               <h4>Dollars Spent</h4>
               <p>{ dollarsSpent }</p>
             </Paper>
-            <Paper style={ paperStyle }>
-              <Calendar style={ iconStyle } />
-              <h4>Days Left</h4>
-              <p>{ daysLeft }</p>
-            </Paper>
           </div>
-          <div className={ styles.table }>
+          <div>
             <Paper>
               <Table height="450px" fixedHeader={ true }>
                 <TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
@@ -212,11 +169,11 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { entryList: state.entry.entryList }
+  return { entryList: state.entry.entryList, statsList: state.stats.statsList }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchEntries }, dispatch)
+  return bindActionCreators({ fetchEntries, fetchStats }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

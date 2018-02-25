@@ -17,3 +17,5 @@ export const ENTRY_SUCCESS = 'ENTRY_SUCCESS'
 export const ENTRY_FAILURE = 'ENTRY_FAILURE'
 
 export const SET_REDIRECT_URL = 'SET_REDIRECT_URL'
+
+export const FETCH_STATS = 'FETCH_STATS'

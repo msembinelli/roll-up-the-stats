@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router'
 import { API_URL } from '../config'
 import {
   FETCH_ENTRIES,
+  FETCH_USER_ENTRIES,
   ENTRY_SUCCESS,
   ENTRY_FAILURE,
 } from './types/index'
@@ -21,11 +22,32 @@ export function entryError(CONST, error) {
  * Fetch all tims entries
  */
 export function fetchEntries() {
-  return function (dispatch) {
-    axios.get(API_URL)
+  return function(dispatch) {
+    axios.get(API_URL).then(response => {
+      dispatch({
+        type: FETCH_ENTRIES,
+        payload: response.data,
+      })
+    })
+  }
+}
+
+/**
+ * Fetch all tims entries
+ */
+export function fetchUserEntries() {
+  const user = JSON.parse(localStorage.getItem('user'))
+  return function(dispatch) {
+    axios
+      .get(`${API_URL}/user`, {
+        headers: { authorization: user.token },
+        params: {
+          email: user.email,
+        },
+      })
       .then(response => {
         dispatch({
-          type: FETCH_ENTRIES,
+          type: FETCH_USER_ENTRIES,
           payload: response.data,
         })
       })
@@ -40,13 +62,16 @@ export function sendEntry(props) {
   props.firstname = user.firstname
   props.lastname = user.lastname
   props.email = user.email
-  return function (dispatch) {
-    axios.post(`${API_URL}/new`, props, { headers: { authorization: user.token } })
+  return function(dispatch) {
+    axios
+      .post(`${API_URL}/new`, props, { headers: { authorization: user.token } })
       .then(() => {
         dispatch({ type: ENTRY_SUCCESS })
 
         browserHistory.push('/')
       })
-      .catch(response => dispatch(entryError(ENTRY_FAILURE, response.data.error)))
+      .catch(response =>
+        dispatch(entryError(ENTRY_FAILURE, response.data.error))
+      )
   }
 }

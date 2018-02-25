@@ -11,6 +11,7 @@ import ResetPassword from './components/resetPassword/ResetPassword'
 import ResetPasswordVerify from './components/resetPassword/ResetPasswordVerify'
 import ResetPasswordNew from './components/resetPassword/ResetPasswordNew'
 import Home from './components/home/Home'
+import User from './components/user/User'
 import Add from './components/new/Add'
 import AddCsv from './components/new/AddCsv'
 import Verified from './components/auth/Verified'
@@ -30,14 +31,15 @@ export default (
     />
     <Route path="verify-email" component={ requireNotAuth(VerifyEmail) } />
     <Route path="reset-password" component={ requireNotAuth(ResetPassword) } />
-    <Route path="reset-password/verify" component={ ResetPasswordVerify } />
     <Route
       path="reset-password/new"
       component={ requireNotAuth(ResetPasswordNew) }
     />
+    <Route path="reset-password/verify" component={ ResetPasswordVerify } />
     <Route path="verified" component={ requireNotAuth(Verified) } />
     <Route path="new" component={ requireAuth(Add) } />
     <Route path="new/csv" component={ requireAuth(AddCsv) } />
+    <Route path="user" component={ requireAuth(User) } />
     <Redirect from="*" to="/" />
   </Route>
 )

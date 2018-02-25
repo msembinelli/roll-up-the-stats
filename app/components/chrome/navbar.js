@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
 import ActionHome from 'material-ui/svg-icons/action/home'
+import AccountBox from 'material-ui/svg-icons/action/account-box'
 import AddBox from 'material-ui/svg-icons/content/add-box'
 import ExitToApp from 'material-ui/svg-icons/action/exit-to-app'
 import IconButton from 'material-ui/IconButton'
@@ -52,6 +53,15 @@ class Navbar extends Component {
                   iconStyle={ iconStyle }
                 >
                   <AddBox color="#455A64" hoverColor={ blue500 } />
+                </IconButton>
+              </li>
+              <li>
+                <IconButton
+                  tooltip="View your stats"
+                  containerElement={ <Link to="/user" /> }
+                  iconStyle={ iconStyle }
+                >
+                  <AccountBox color="#455A64" hoverColor={ blue500 } />
                 </IconButton>
               </li>
               { authenticated ? (

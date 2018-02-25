@@ -95,7 +95,6 @@ export const verifyResetPassword = (req, res, next) => {
  */
 export const resetPasswordNew = (req, res, next) => {
   const { email, newpassword, token } = req.body;
-  console.log(req.body);
 
   User.findOne({ email }, (err, user) => {
     if (!user) {

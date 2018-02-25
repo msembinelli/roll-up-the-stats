@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { fetchEntries } from '../../actions/entries'
-import { fetchStats } from '../../actions/stats'
+import { fetchUserEntries } from '../../actions/entries'
+import { fetchUserStats } from '../../actions/stats'
 import {
   Table,
   TableBody,
@@ -12,11 +12,8 @@ import {
   TableRowColumn,
 } from 'material-ui/Table'
 import Up from 'material-ui/svg-icons/action/trending-up'
-import Cart from 'material-ui/svg-icons/action/shopping-cart'
-import Flame from 'material-ui/svg-icons/social/whatshot'
 import Money from 'material-ui/svg-icons/editor/attach-money'
 import Pie from 'material-ui/svg-icons/editor/pie-chart'
-import Coffee from 'material-ui/svg-icons/places/free-breakfast'
 import Paper from 'material-ui/Paper'
 import Footer from '../chrome/footer'
 import styles from '../../styles/home.scss'
@@ -33,7 +30,7 @@ const paperStyle = {
   display: 'inline-block',
 }
 
-class Home extends Component {
+class User extends Component {
   constructor(props) {
     super(props)
 
@@ -46,8 +43,8 @@ class Home extends Component {
   // }
 
   componentWillMount() {
-    this.props.fetchEntries()
-    this.props.fetchStats()
+    this.props.fetchUserEntries()
+    this.props.fetchUserStats()
     // this.setState({
     //   timer: setInterval(this.fetchEntriesAndStats.bind(this), 5000),
     // })
@@ -77,39 +74,24 @@ class Home extends Component {
   }
 
   render() {
-    const { entryList, statsList } = this.props
+    const { userEntryList, userStatsList } = this.props
 
-    if (!entryList || !statsList) {
+    if (!userEntryList || !userStatsList) {
       return <div>Loading...</div>
     }
 
-    const totalWinsText = statsList.totalWins
+    const totalWinsText = userStatsList.totalWins
 
-    const winRate = `${statsList.winRate.value.toFixed(2)} (${
-      statsList.winRate.fractionString
+    const winRate = `${userStatsList.winRate.value.toFixed(2)} (${
+      userStatsList.winRate.fractionString
     })`
 
-    const mostCommonWinningSize = `${statsList.winningSizes.map(
-      (element, index) =>
-        `${element.size}${statsList.winningSizes[index + 1] ? ',' : ''} `
-    )} (${statsList.winningSizes[0].wins})`
-
-    const [ statsMostPurchases ] = statsList.mostPurchases
-    const mostPurchases = `${statsMostPurchases._id.firstname} ${
-      statsMostPurchases._id.lastname[0]
-    }. (${statsMostPurchases.count})`
-
-    const [ statsMostWins ] = statsList.mostWins
-    const mostWins = `${statsMostWins._id.firstname} ${
-      statsMostWins._id.lastname[0]
-    }. (${statsMostWins.count})`
-
-    const dollarsSpent = statsList.dollarsSpent.toFixed(2)
+    const dollarsSpent = userStatsList.dollarsSpent.toFixed(2)
 
     return (
       <div>
         <div className={ styles.homecontainer }>
-          <div className={ styles.stats }>
+          <div className={ styles.userstats }>
             <Paper style={ paperStyle }>
               <Up style={ iconStyle } />
               <h4>Total Wins</h4>
@@ -119,21 +101,6 @@ class Home extends Component {
               <Pie style={ iconStyle } />
               <h4>Win Rate</h4>
               <p>{ winRate }</p>
-            </Paper>
-            <Paper style={ paperStyle }>
-              <Coffee style={ iconStyle } />
-              <h4>Winning Sizes</h4>
-              <p>{ mostCommonWinningSize }</p>
-            </Paper>
-            <Paper style={ paperStyle }>
-              <Cart style={ iconStyle } />
-              <h4>Most Purchases</h4>
-              <p>{ mostPurchases }</p>
-            </Paper>
-            <Paper style={ paperStyle }>
-              <Flame style={ iconStyle } />
-              <h4>Most Wins</h4>
-              <p>{ mostWins }</p>
             </Paper>
             <Paper style={ paperStyle }>
               <Money style={ iconStyle } />
@@ -157,7 +124,7 @@ class Home extends Component {
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={ false }>
-                  { entryList
+                  { userEntryList
                     .slice(0)
                     .reverse()
                     .map(this.renderTableRow) }
@@ -173,11 +140,14 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { entryList: state.entry.entryList, statsList: state.stats.statsList }
+  return {
+    userEntryList: state.entry.userEntryList,
+    userStatsList: state.stats.userStatsList,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchEntries, fetchStats }, dispatch)
+  return bindActionCreators({ fetchUserEntries, fetchUserStats }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(User)

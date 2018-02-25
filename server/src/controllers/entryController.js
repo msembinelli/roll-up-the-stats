@@ -18,6 +18,23 @@ export const fetchEntries = (req, res, next) => {
 };
 
 /**
+ * Fetch a users tims entries
+ */
+export const fetchUserEntries = (req, res, next) => {
+  Entry.find({ email: req.user.email }, (err, entries) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (entries === undefined) {
+      return res.status(422).send({ error: "no entries found" });
+    }
+
+    res.json(entries);
+  });
+};
+
+/**
  * Make an entry
  */
 export const makeEntry = (req, res, next) => {

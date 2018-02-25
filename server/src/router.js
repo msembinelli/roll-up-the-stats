@@ -10,8 +10,12 @@ import {
   verifyResetPassword,
   resetPasswordNew
 } from "./controllers/resetPasswordController";
-import { fetchEntries, makeEntry } from "./controllers/entryController";
-import { fetchStats } from "./controllers/statsController";
+import {
+  fetchEntries,
+  fetchUserEntries,
+  makeEntry
+} from "./controllers/entryController";
+import { fetchStats, fetchUserStats } from "./controllers/statsController";
 import passportService from "./services/passport";
 
 const requireAuth = passport.authenticate("jwt", { session: false });
@@ -20,6 +24,8 @@ const requireSignin = passport.authenticate("local", { session: false });
 const router = app => {
   app.get("/", fetchEntries);
   app.get("/stats", fetchStats);
+  app.get("/user", requireAuth, fetchUserEntries);
+  app.get("/user/stats", requireAuth, fetchUserStats);
   app.post("/new", requireAuth, makeEntry);
   app.post("/signup", signup);
   app.post("/signup/verify-email", verifyEmail);

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
@@ -9,9 +9,11 @@ const entrySchema = new Schema({
   email: String,
   date: Date,
   size: String,
+  purchased: String,
   win: String,
   prize: String,
+  appPrize: String,
   comment: String
 });
 
-export default mongoose.model('entry', entrySchema);
+export default mongoose.model("entry", entrySchema);

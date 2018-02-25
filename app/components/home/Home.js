@@ -191,6 +191,7 @@ class Home extends Component {
                     <TableHeaderColumn>Purchased</TableHeaderColumn>
                     <TableHeaderColumn>Win</TableHeaderColumn>
                     <TableHeaderColumn>Prize</TableHeaderColumn>
+                    <TableHeaderColumn>App Prize</TableHeaderColumn>
                     <TableHeaderColumn>Comment</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>

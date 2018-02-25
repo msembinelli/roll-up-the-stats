@@ -1,4 +1,4 @@
-export const sizes = [ 'S', 'M', 'L', 'XL', 'App' ]
+export const sizes = [ 'S', 'M', 'L', 'XL' ]
 export const purchased = [ 'No', 'Yes' ]
 export const wins = [ 'No', 'Yes' ]
 export const prizes = [
@@ -10,3 +10,4 @@ export const prizes = [
   '$50 Tim Card',
   '$5000 Prepaid Card',
 ]
+export const appPrizes = [ 'Coffee', 'Donut' ]

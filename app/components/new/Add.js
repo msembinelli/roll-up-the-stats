@@ -11,7 +11,7 @@ import DropdownList from 'react-widgets/lib/DropdownList'
 import DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import { sendEntry } from '../../actions/entries'
 import { connect } from 'react-redux'
-import { sizes, wins, prizes, purchased } from './types/index'
+import { sizes, wins, prizes, purchased, appPrizes } from './types/index'
 
 Globalize.locale('en')
 globalizeLocalizer()
@@ -30,12 +30,7 @@ const renderDropdownList = ({
     }` }
   >
     <h4>{ placeholder }</h4>
-    <DropdownList
-      { ...input }
-      data={ data }
-      value={ !input.value ? data[0] : input.value }
-      onChange={ input.onChange }
-    />
+    <DropdownList { ...input } data={ data } onChange={ input.onChange } />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
 )
@@ -55,7 +50,7 @@ const renderDateTimePicker = ({
       onChange={ onChange }
       editFormat={ formatter }
       time={ false }
-      value={ !value ? new Date() : new Date(value) }
+      value={ !value ? null : new Date(value) }
     />
     { touched && error && <div className={ styles.formerror }>{ error }</div> }
   </div>
@@ -138,13 +133,22 @@ class Add extends Component {
 
           { /* Prize */ }
           { isWin === 'Yes' ? (
-            <Field
-              name="prize"
-              component={ renderDropdownList }
-              data={ prizes }
-              type="text"
-              placeholder="Prize"
-            />
+            <span>
+              <Field
+                name="prize"
+                component={ renderDropdownList }
+                data={ prizes }
+                type="text"
+                placeholder="Prize"
+              />
+              <Field
+                name="appPrize"
+                component={ renderDropdownList }
+                data={ appPrizes }
+                type="text"
+                placeholder="App Prize"
+              />
+            </span>
           ) : null }
 
           { /* Comment */ }
@@ -197,6 +201,10 @@ const validate = props => {
 
   if (!props.prize) {
     props.prize = ''
+  }
+
+  if (!props.appPrize) {
+    props.appPrize = ''
   }
 
   if (props.comment && props.comment.length > 144) {

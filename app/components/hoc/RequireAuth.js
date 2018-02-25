@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { setRedirectUrl } from '../../actions/auth'
 
-export default function (ComposedComponent) {
+export default function(ComposedComponent) {
   class Authentication extends Component {
     constructor(props) {
       super(props)
     }
 
     authenticateFirst(authenticated, url, setUrlFunc) {
-      if (!authenticated) {
+      if (false === authenticated || undefined === authenticated) {
         setUrlFunc(url)
         browserHistory.push('/signin')
       }
@@ -24,11 +24,16 @@ export default function (ComposedComponent) {
 
     componentWillUpdate(nextProps) {
       const { setRedirectUrl, location } = this.props
-      this.authenticateFirst(nextProps.authenticated, location.pathname, setRedirectUrl)
+      this.authenticateFirst(
+        nextProps.authenticated,
+        location.pathname,
+        setRedirectUrl
+      )
     }
 
     render() {
-      return <ComposedComponent { ...this.props } />
+      const { authenticated } = this.props
+      return authenticated ? <ComposedComponent { ...this.props } /> : null
     }
   }
 

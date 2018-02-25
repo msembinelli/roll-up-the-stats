@@ -24,6 +24,7 @@ export default (
     <IndexRoute component={ Home } />
     <Route path="signin" component={ requireNotAuth(Signin) } />
     <Route path="signup" component={ requireNotAuth(Signup) } />
+    <Route path="user" component={ requireAuth(User) } />
     <Route path="signout" component={ Signout } />
     <Route
       path="signup/verify-email"
@@ -39,7 +40,6 @@ export default (
     <Route path="verified" component={ requireNotAuth(Verified) } />
     <Route path="new" component={ requireAuth(Add) } />
     <Route path="new/csv" component={ requireAuth(AddCsv) } />
-    <Route path="user" component={ requireAuth(User) } />
     <Redirect from="*" to="/" />
   </Route>
 )

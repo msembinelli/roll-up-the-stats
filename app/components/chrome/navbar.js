@@ -18,9 +18,12 @@ const iconStyle = {
 class Navbar extends Component {
   constructor(props) {
     super(props)
+    this.state = { open: false }
   }
 
   componentWillMount() {}
+
+  handleToggle = () => this.setState({ open: !this.state.open });
 
   render() {
     const { authenticated } = this.props
@@ -29,11 +32,6 @@ class Navbar extends Component {
       <div className={ styles.navbar }>
         <div className={ styles.navtitle }>roll up the stats</div>
         <div className={ styles.navmenuleft }>
-          <div className={ styles.navlinks }>
-            <ul />
-          </div>
-        </div>
-        <div className={ styles.navmenuright }>
           <div className={ styles.navlinks }>
             <ul>
               <li>
@@ -45,6 +43,12 @@ class Navbar extends Component {
                   <ActionHome color="#455A64" hoverColor={ blue500 } />
                 </IconButton>
               </li>
+            </ul>
+          </div>
+        </div>
+        <div className={ styles.navmenuright }>
+          <div className={ styles.navlinks }>
+            <ul>
               <li>
                 <IconButton
                   tooltip="Make an entry"

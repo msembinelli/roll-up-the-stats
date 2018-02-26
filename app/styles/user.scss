@@ -1,0 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito:300,400,500,600,700);
+@import "~styles/app.scss";
+
+.userstats {
+  font-family: "Nunito", sans-serif;
+  font-weight: lighter;
+  letter-spacing: 0.5px;
+  padding-bottom: 20px;
+}
+
+.usercontainer {
+  max-width: 1200px;
+  min-width: 1200px;
+  margin: auto;
+  padding: 0px 20px 20px 20px;
+  p {
+    white-space: pre-line;
+  }
+}

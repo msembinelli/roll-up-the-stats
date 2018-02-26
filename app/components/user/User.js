@@ -15,8 +15,11 @@ import Up from 'material-ui/svg-icons/action/trending-up'
 import Money from 'material-ui/svg-icons/editor/attach-money'
 import Pie from 'material-ui/svg-icons/editor/pie-chart'
 import Paper from 'material-ui/Paper'
+import Coffee from 'material-ui/svg-icons/places/free-breakfast'
+import Litres from 'material-ui/svg-icons/maps/local-drink'
+import Calendar from 'material-ui/svg-icons/action/date-range'
 import Footer from '../chrome/footer'
-import styles from '../../styles/home.scss'
+import styles from '../../styles/user.scss'
 
 const iconStyle = {
   marginTop: 24,
@@ -81,16 +84,22 @@ class User extends Component {
     }
 
     const totalWinsText = userStatsList.totalWins
+    const [ mostEntriesOneDay ] = userStatsList.mostEntriesOneDay
 
     const winRate = `${userStatsList.winRate.value.toFixed(2)} (${
       userStatsList.winRate.fractionString
     })`
 
+    const coffeesPastWeek = userStatsList.entriesPastWeek
+    const mostCoffeesOneDay = `${mostEntriesOneDay.count} (${new Date(
+      mostEntriesOneDay._id.maxDate
+    ).toLocaleDateString()})`
+    const litresConsumed = userStatsList.litresConsumed.toFixed(2)
     const dollarsSpent = userStatsList.dollarsSpent.toFixed(2)
 
     return (
       <div>
-        <div className={ styles.homecontainer }>
+        <div className={ styles.usercontainer }>
           <div className={ styles.userstats }>
             <Paper style={ paperStyle }>
               <Up style={ iconStyle } />
@@ -101,6 +110,21 @@ class User extends Component {
               <Pie style={ iconStyle } />
               <h4>Win Rate</h4>
               <p>{ winRate }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Coffee style={ iconStyle } />
+              <h4>Coffees Past Week</h4>
+              <p>{ coffeesPastWeek }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Calendar style={ iconStyle } />
+              <h4>Most In One Day</h4>
+              <p>{ mostCoffeesOneDay }</p>
+            </Paper>
+            <Paper style={ paperStyle }>
+              <Litres style={ iconStyle } />
+              <h4>Litres Consumed</h4>
+              <p>{ litresConsumed }</p>
             </Paper>
             <Paper style={ paperStyle }>
               <Money style={ iconStyle } />

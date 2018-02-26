@@ -85,24 +85,32 @@ class Home extends Component {
 
     const totalWinsText = statsList.totalWins
 
-    const winRate = `${statsList.winRate.value.toFixed(2)} (${
-      statsList.winRate.fractionString
-    })`
+    let winRate = 'None'
+    if (statsList.winRate.value) {
+      winRate = `${statsList.winRate.value.toFixed(2)} (${
+        statsList.winRate.fractionString
+      })`
+    }
 
     const mostCommonWinningSize = `${statsList.winningSizes.map(
-      (element, index) =>
-        `${element.size}${statsList.winningSizes[index + 1] ? ',' : ''} `
+      element => ` ${element.size}`
     )} (${statsList.winningSizes[0].wins})`
 
     const [ statsMostPurchases ] = statsList.mostPurchases
-    const mostPurchases = `${statsMostPurchases._id.firstname} ${
-      statsMostPurchases._id.lastname[0]
-    }. (${statsMostPurchases.count})`
+    let mostPurchases = 'None'
+    if (statsMostPurchases) {
+      mostPurchases = `${statsMostPurchases._id.firstname} ${
+        statsMostPurchases._id.lastname[0]
+      }. (${statsMostPurchases.count})`
+    }
 
     const [ statsMostWins ] = statsList.mostWins
-    const mostWins = `${statsMostWins._id.firstname} ${
-      statsMostWins._id.lastname[0]
-    }. (${statsMostWins.count})`
+    let mostWins = 'None'
+    if (statsMostWins) {
+      mostWins = `${statsMostWins._id.firstname} ${
+        statsMostWins._id.lastname[0]
+      }. (${statsMostWins.count})`
+    }
 
     const dollarsSpent = statsList.dollarsSpent.toFixed(2)
 

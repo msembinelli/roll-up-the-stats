@@ -59,6 +59,7 @@ export function fetchUserEntries() {
  */
 export function sendEntry(props) {
   const user = JSON.parse(localStorage.getItem('user'))
+  console.log(props.date)
   props.firstname = user.firstname
   props.lastname = user.lastname
   props.email = user.email

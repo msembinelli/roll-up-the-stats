@@ -86,14 +86,22 @@ class User extends Component {
     const totalWinsText = userStatsList.totalWins
     const [ mostEntriesOneDay ] = userStatsList.mostEntriesOneDay
 
-    const winRate = `${userStatsList.winRate.value.toFixed(2)} (${
-      userStatsList.winRate.fractionString
-    })`
+    let winRate = 'None'
+    if (userStatsList.winRate.value) {
+      winRate = `${userStatsList.winRate.value.toFixed(2)} (${
+        userStatsList.winRate.fractionString
+      })`
+    }
 
     const coffeesPastWeek = userStatsList.entriesPastWeek
-    const mostCoffeesOneDay = `${mostEntriesOneDay.count} (${new Date(
-      mostEntriesOneDay._id.maxDate
-    ).toLocaleDateString()})`
+
+    let mostCoffeesOneDay = 'None'
+    if (coffeesPastWeek) {
+      mostCoffeesOneDay = `${mostEntriesOneDay.count} (${new Date(
+        mostEntriesOneDay._id.maxDate
+      ).toLocaleDateString()})`
+    }
+
     const litresConsumed = userStatsList.litresConsumed.toFixed(2)
     const dollarsSpent = userStatsList.dollarsSpent.toFixed(2)
 

@@ -16,7 +16,10 @@ import { sizes, wins, prizes, purchased, appPrizes } from './types/index'
 Globalize.locale('en')
 globalizeLocalizer()
 
-let formatter = Globalize.dateFormatter({ date: 'short' })
+let formatter = Globalize.dateFormatter({
+  date: 'short',
+  timezone: 'America/Edmonton', //TODO: Make this dynamic
+})
 
 const renderDropdownList = ({
   input,

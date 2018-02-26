@@ -4,7 +4,7 @@
 .navbar {
   border-bottom: 1px solid $gray;
   line-height: 70px;
-  min-width: 380px;
+  min-width: 680px;
   position: fixed;
   top: 0;
   left: 0;
@@ -58,8 +58,8 @@
 }
 
 .navtitle {
-  margin: -4px 0 30px -100px;
-  position: fixed;
+  margin: -4px 0px 30px 100px;
+  float: center;
   font-family: "Shadows Into Light", sans-serif;
   font-size: 32px;
   font-weight: bold;

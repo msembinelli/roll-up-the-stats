@@ -81,7 +81,7 @@ export const makeEntry = (req, res, next) => {
       return next(err);
     }
 
-    res.json({ id });
+    res.json({ message: "success" });
   });
 };
 

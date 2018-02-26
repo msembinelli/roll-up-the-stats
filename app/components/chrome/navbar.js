@@ -30,7 +30,15 @@ class Navbar extends Component {
 
     return (
       <div className={ styles.navbar }>
-        <div className={ styles.navtitle }>roll up the stats</div>
+        <div className={ styles.navtitle }>
+          <Link
+            to="/"
+            style={ { color: '#4c5760' } }
+            activeStyle={ { color: '#4c5760' } }
+          >
+            roll up the stats
+          </Link>
+        </div>
         <div className={ styles.navmenuleft }>
           <div className={ styles.navlinks }>
             <ul>

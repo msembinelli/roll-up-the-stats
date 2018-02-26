@@ -59,7 +59,7 @@ class User extends Component {
 
   renderTableRow(entry) {
     return (
-      <TableRow key={ entry.id }>
+      <TableRow key={ entry._id }>
         <TableRowColumn>{ `${entry.firstname} ${
           entry.lastname[0]
         }.` }</TableRowColumn>

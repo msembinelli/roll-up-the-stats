@@ -5,6 +5,7 @@ import {
   FETCH_ENTRIES,
   FETCH_USER_ENTRIES,
   ENTRY_SUCCESS,
+  ENTRY_CSV_SUCCESS,
   ENTRY_FAILURE,
 } from './types/index'
 
@@ -59,7 +60,6 @@ export function fetchUserEntries() {
  */
 export function sendEntry(props) {
   const user = JSON.parse(localStorage.getItem('user'))
-  console.log(props.date)
   props.firstname = user.firstname
   props.lastname = user.lastname
   props.email = user.email
@@ -69,7 +69,36 @@ export function sendEntry(props) {
       .then(() => {
         dispatch({ type: ENTRY_SUCCESS })
 
-        browserHistory.push('/')
+        browserHistory.push('/user')
+      })
+      .catch(response =>
+        dispatch(entryError(ENTRY_FAILURE, response.data.error))
+      )
+  }
+}
+
+/**
+ * Send entries as CSV file
+ */
+export function sendEntryCsv(file) {
+  const user = JSON.parse(localStorage.getItem('user'))
+
+  var body = new FormData()
+  body.append('file', file)
+
+  const config = {
+    headers: {
+      authorization: user.token,
+    },
+  }
+
+  return function(dispatch) {
+    axios
+      .post(`${API_URL}/new/csv`, body, config)
+      .then(() => {
+        dispatch({ type: ENTRY_CSV_SUCCESS })
+
+        browserHistory.push('/user')
       })
       .catch(response =>
         dispatch(entryError(ENTRY_FAILURE, response.data.error))

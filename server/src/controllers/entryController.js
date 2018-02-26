@@ -63,36 +63,80 @@ export const makeEntry = (req, res, next) => {
     return res.status(422).send({ error: "all fields are required" });
   }
 
-  Entry.find({}, (err, entries) => {
+  const entry = new Entry({
+    firstname,
+    lastname,
+    email,
+    date,
+    size,
+    purchased,
+    win,
+    prize,
+    appPrize,
+    comment
+  });
+
+  entry.save(err => {
     if (err) {
       return next(err);
     }
 
-    let id = 0;
-    if (entries !== undefined) {
-      id = entries.length;
-    }
+    res.json({ id });
+  });
+};
 
-    const entry = new Entry({
-      id,
-      firstname,
-      lastname,
-      email,
-      date,
-      purchased,
-      size,
-      win,
-      prize,
-      appPrize,
-      comment
-    });
+import csv from "csv-parser";
+import fs from "fs";
 
-    entry.save(err => {
-      if (err) {
-        return next(err);
+/**
+ * Make CSV entry
+ */
+export const makeEntryCsv = (req, res, next) => {
+  const { firstname, lastname, email } = req.user;
+  fs
+    .createReadStream(req.file.path)
+    .pipe(csv())
+    .on("data", function(data) {
+      console.log(data);
+      const { date, size, purchased, win, prize, appPrize, comment } = data;
+      console.log(date);
+      console.log(size);
+      console.log(purchased);
+      console.log(win);
+      console.log(prize);
+      console.log(appPrize);
+      console.log(comment);
+      if (
+        !firstname ||
+        !lastname ||
+        !email ||
+        !date ||
+        !size ||
+        !win ||
+        !purchased
+      ) {
+        return res.status(422).send({ error: "all fields are required" });
       }
 
-      res.json({ id });
+      const entry = new Entry({
+        firstname,
+        lastname,
+        email,
+        date,
+        size,
+        purchased,
+        win,
+        prize,
+        appPrize,
+        comment
+      });
+
+      entry.save(err => {
+        if (err) {
+          return next(err);
+        }
+      });
     });
-  });
+
+  res.json({ message: "success" });
 };

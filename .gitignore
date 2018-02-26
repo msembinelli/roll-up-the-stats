@@ -7,3 +7,4 @@ karma-*
 server/data/
 .tmp-globalize-webpack/
 .vscode/
+server/uploads/

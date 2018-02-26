@@ -74,23 +74,15 @@ class AddCsv extends Component {
   }
 
   handleFormSubmit(formProps) {
-    var body = new FormData()
-    Object.keys(formProps).forEach(key => {
-      body.append(key, formProps[key])
-    })
-    console.log(body)
-    // if (
-    //   Object.keys(formProps).length !== 0 &&
-    //   formProps.constructor !== Object
-    // ) {
-    //   this.props.sendEntryCsv(formProps)
-    // }
-    // console.log(formProps)
+    const file = formProps.files[0]
+    if (file) {
+      this.props.sendEntryCsv(file)
+    } else {
+      console.log('no file found' + formProps)
+    }
   }
 
-  onChange(props) {
-    console.log(props)
-  }
+  onChange() {}
 
   render() {
     const { handleSubmit, reset } = this.props

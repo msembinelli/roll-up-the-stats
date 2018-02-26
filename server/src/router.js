@@ -13,7 +13,8 @@ import {
 import {
   fetchEntries,
   fetchUserEntries,
-  makeEntry
+  makeEntry,
+  makeEntryCsv
 } from "./controllers/entryController";
 import { fetchStats, fetchUserStats } from "./controllers/statsController";
 import passportService from "./services/passport";
@@ -27,6 +28,7 @@ const router = app => {
   app.get("/user", requireAuth, fetchUserEntries);
   app.get("/user/stats", requireAuth, fetchUserStats);
   app.post("/new", requireAuth, makeEntry);
+  app.post("/new/csv", requireAuth, makeEntryCsv);
   app.post("/signup", signup);
   app.post("/signup/verify-email", verifyEmail);
   app.post("/resend-verify-code", resendVerification);

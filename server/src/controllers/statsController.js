@@ -60,7 +60,13 @@ function mostEntriesOneDayHelper(email) {
     },
     {
       $project: {
-        maxDate: { $dateToString: { format: "%Y-%m-%d", date: "$date" } }
+        maxDate: {
+          $dateToString: {
+            format: "%m/%d/%Y",
+            date: "$date",
+            timezone: "America/Edmonton"
+          }
+        }
       }
     },
     {

@@ -60,9 +60,7 @@ export function fetchUserEntries() {
  */
 export function sendEntry(props) {
   const user = JSON.parse(localStorage.getItem('user'))
-  props.firstname = user.firstname
-  props.lastname = user.lastname
-  props.email = user.email
+
   return function(dispatch) {
     axios
       .post(`${API_URL}/new`, props, { headers: { authorization: user.token } })
@@ -71,8 +69,8 @@ export function sendEntry(props) {
 
         browserHistory.push('/user')
       })
-      .catch(response =>
-        dispatch(entryError(ENTRY_FAILURE, response.data.error))
+      .catch(error =>
+        dispatch(entryError(ENTRY_FAILURE, error.response.data.error))
       )
   }
 }
@@ -100,8 +98,8 @@ export function sendEntryCsv(file) {
 
         browserHistory.push('/user')
       })
-      .catch(response =>
-        dispatch(entryError(ENTRY_FAILURE, response.data.error))
+      .catch(error =>
+        dispatch(entryError(ENTRY_FAILURE, error.response.data.error))
       )
   }
 }

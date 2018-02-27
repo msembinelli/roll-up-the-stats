@@ -1,4 +1,13 @@
 import Entry from "../models/entry";
+import csv from "csv-parser";
+import fs from "fs";
+import {
+  sizesList,
+  purchasedList,
+  winsList,
+  prizesList,
+  appPrizesList
+} from "./types/index";
 
 /**
  * Fetch tims entries
@@ -10,11 +19,11 @@ export const fetchEntries = (req, res, next) => {
     }
 
     if (entries === undefined) {
-      return res.status(422).send({ error: "no entries found" });
+      return res.status(422).send({ error: "No entries found" });
     }
 
     res.json(entries);
-  });
+  }).sort({ date: 1 });
 };
 
 /**
@@ -27,29 +36,19 @@ export const fetchUserEntries = (req, res, next) => {
     }
 
     if (entries === undefined) {
-      return res.status(422).send({ error: "no entries found" });
+      return res.status(422).send({ error: "No entries found" });
     }
 
     res.json(entries);
-  });
+  }).sort({ date: 1 });
 };
 
 /**
  * Make an entry
  */
 export const makeEntry = (req, res, next) => {
-  const {
-    firstname,
-    lastname,
-    email,
-    date,
-    size,
-    purchased,
-    win,
-    prize,
-    appPrize,
-    comment
-  } = req.body;
+  const { firstname, lastname, email } = req.user;
+  const { date, size, purchased, win, prize, appPrize, comment } = req.body;
 
   if (
     !firstname ||
@@ -60,7 +59,7 @@ export const makeEntry = (req, res, next) => {
     !win ||
     !purchased
   ) {
-    return res.status(422).send({ error: "all fields are required" });
+    return res.status(422).send({ error: "All fields are required" });
   }
 
   const entry = new Entry({
@@ -85,50 +84,48 @@ export const makeEntry = (req, res, next) => {
   });
 };
 
-import csv from "csv-parser";
-import fs from "fs";
-
 /**
  * Make CSV entry
  */
 export const makeEntryCsv = (req, res, next) => {
   const { firstname, lastname, email } = req.user;
-  fs
-    .createReadStream(req.file.path)
-    .pipe(csv())
-    .on("data", function(data) {
-      console.log(data);
-      const { date, size, purchased, win, prize, appPrize, comment } = data;
-      console.log(date);
-      console.log(size);
-      console.log(purchased);
-      console.log(win);
-      console.log(prize);
-      console.log(appPrize);
-      console.log(comment);
+  var stream = fs.createReadStream(req.file.path);
+  stream.pipe(csv()).on("data", function(data) {
+    const { date, size, purchased, win, prize, appPrize, comment } = data;
+    if (
+      firstname &&
+      lastname &&
+      email &&
+      date &&
+      size &&
+      sizesList.indexOf(size) > -1 &&
+      win &&
+      winsList.indexOf(win) > -1 &&
+      purchased &&
+      purchasedList.indexOf(purchased) > -1
+    ) {
+      if (win === "Yes" && (!prize && !appPrize)) {
+        console.log("win but no prize " + prize + " " + appPrize);
+      }
+
       if (
-        !firstname ||
-        !lastname ||
-        !email ||
-        !date ||
-        !size ||
-        !win ||
-        !purchased
+        (win && (prize && prizesList.indexOf(prize) == -1)) ||
+        (appPrize && appPrizesList.indexOf(appPrize) == -1)
       ) {
-        return res.status(422).send({ error: "all fields are required" });
+        console.log("invalid prize " + prize + " " + appPrize);
       }
 
       const entry = new Entry({
-        firstname,
-        lastname,
-        email,
-        date,
-        size,
-        purchased,
-        win,
-        prize,
-        appPrize,
-        comment
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        date: date,
+        size: size,
+        purchased: purchased,
+        win: win,
+        prize: prize,
+        appPrize: appPrize,
+        comment: comment
       });
 
       entry.save(err => {
@@ -136,7 +133,8 @@ export const makeEntryCsv = (req, res, next) => {
           return next(err);
         }
       });
-    });
+    }
+  });
 
   res.json({ message: "success" });
 };

@@ -26,14 +26,17 @@ export function authError(CONST, error) {
  * Sign up
  */
 export function signupUser(props) {
-  return function (dispatch) {
-    axios.post(`${API_URL}/signup`, props)
+  return function(dispatch) {
+    axios
+      .post(`${API_URL}/signup`, props)
       .then(() => {
         dispatch({ type: SIGNUP_SUCCESS })
 
         browserHistory.push(`/signup/verify-email?email=${props.email}`)
       })
-      .catch(response => dispatch(authError(SIGNUP_FAILURE, response.data.error)))
+      .catch(error =>
+        dispatch(authError(SIGNUP_FAILURE, error.response.data.error))
+      )
   }
 }
 
@@ -43,8 +46,9 @@ export function signupUser(props) {
 export function signinUser(props) {
   const { email, password, nextUrlPath } = props
 
-  return function (dispatch) {
-    axios.post(`${API_URL}/signin`, { email, password })
+  return function(dispatch) {
+    axios
+      .post(`${API_URL}/signin`, { email, password })
       .then(response => {
         localStorage.setItem('user', JSON.stringify(response.data))
 
@@ -52,7 +56,9 @@ export function signinUser(props) {
 
         browserHistory.push(nextUrlPath)
       })
-      .catch(() => dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right")))
+      .catch(() =>
+        dispatch(authError(SIGNIN_FAILURE, "Email or password isn't right"))
+      )
   }
 }
 
@@ -60,12 +66,15 @@ export function signinUser(props) {
  * Resend verification code
  */
 export function resendVerification(props) {
-  return function (dispatch) {
-    axios.post(`${API_URL}/resend-verify-code`, props)
+  return function(dispatch) {
+    axios
+      .post(`${API_URL}/resend-verify-code`, props)
       .then(() => {
         dispatch({ type: SIGNUP_SUCCESS })
       })
-      .catch(response => dispatch(authError(SIGNUP_RESEND_FAILURE, response.data)))
+      .catch(error =>
+        dispatch(authError(SIGNUP_RESEND_FAILURE, error.response.data.error))
+      )
   }
 }
 
@@ -73,14 +82,17 @@ export function resendVerification(props) {
  * Verify email
  */
 export function verifyEmail(props) {
-  return function (dispatch) {
-    axios.post(`${API_URL}/signup/verify-email`, props)
+  return function(dispatch) {
+    axios
+      .post(`${API_URL}/signup/verify-email`, props)
       .then(response => {
         localStorage.setItem('user', JSON.stringify(response.data))
 
         browserHistory.push(`/verified?email=${props.email}`)
       })
-      .catch(response => dispatch(authError(VERIFY_EMAIL_ERROR, response.data.error)))
+      .catch(error =>
+        dispatch(authError(VERIFY_EMAIL_ERROR, error.response.data.error))
+      )
   }
 }
 

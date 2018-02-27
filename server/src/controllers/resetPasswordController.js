@@ -17,7 +17,7 @@ export const resetPassword = (req, res, next) => {
     }
 
     if (!user) {
-      return res.status(422).send({ error: "email doesn't exists" });
+      return res.status(422).send({ error: "Email doesn't exist" });
     }
 
     const token = tokenForUser(user);

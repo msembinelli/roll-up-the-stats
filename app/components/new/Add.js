@@ -167,7 +167,7 @@ class Add extends Component {
             { this.props.errorMessage &&
               this.props.errorMessage.entry && (
                 <div className={ styles.errorcontainer }>
-                  Oops! { this.props.errorMessage.signup }
+                  Oops! { this.props.errorMessage.entry }
                 </div>
               ) }
           </div>
@@ -220,7 +220,7 @@ const validate = props => {
 const selector = formValueSelector('add')
 
 function mapStateToProps(state) {
-  return { errorMessage: state.auth.error, isWin: selector(state, 'win') }
+  return { errorMessage: state.entry.error, isWin: selector(state, 'win') }
 }
 
 function mapDispatchToProps(dispatch) {

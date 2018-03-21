@@ -5,7 +5,8 @@ function mostWinsHelper() {
   return Entry.aggregate([
     {
       $match: {
-        win: "Yes"
+        win: "Yes",
+        prize: { $ne: "" }
       }
     },
     {
@@ -116,11 +117,11 @@ function countEntries(fieldsToMatch) {
 export const fetchStats = (req, res, next) => {
   Promise.all([
     countEntries({}),
-    countEntries({ win: "Yes" }),
-    countEntries({ size: "S", win: "Yes" }),
-    countEntries({ size: "M", win: "Yes" }),
-    countEntries({ size: "L", win: "Yes" }),
-    countEntries({ size: "XL", win: "Yes" }),
+    countEntries({ win: "Yes", prize: { $ne: "" } }),
+    countEntries({ size: "S", win: "Yes", prize: { $ne: "" } }),
+    countEntries({ size: "M", win: "Yes", prize: { $ne: "" } }),
+    countEntries({ size: "L", win: "Yes", prize: { $ne: "" } }),
+    countEntries({ size: "XL", win: "Yes", prize: { $ne: "" } }),
     countEntries({ size: "S", purchased: "Yes" }),
     countEntries({ size: "M", purchased: "Yes" }),
     countEntries({ size: "L", purchased: "Yes" }),
@@ -177,7 +178,7 @@ export const fetchStats = (req, res, next) => {
 export const fetchUserStats = (req, res, next) => {
   Promise.all([
     countEntries({ email: req.user.email }),
-    countEntries({ email: req.user.email, win: "Yes" }),
+    countEntries({ email: req.user.email, win: "Yes", prize: { $ne: "" } }),
     countEntries({ email: req.user.email, size: "S" }),
     countEntries({ email: req.user.email, size: "M" }),
     countEntries({ email: req.user.email, size: "L" }),

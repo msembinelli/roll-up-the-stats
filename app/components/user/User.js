@@ -70,8 +70,7 @@ class User extends Component {
         <TableRowColumn>{ entry.purchased }</TableRowColumn>
         <TableRowColumn>{ entry.win }</TableRowColumn>
         <TableRowColumn>{ entry.prize }</TableRowColumn>
-        <TableRowColumn>{ entry.appPrize }</TableRowColumn>
-        <TableRowColumn>{ entry.comment }</TableRowColumn>
+        <TableRowColumn style={ { whiteSpace: 'normal', wordWrap: 'break-word' } }>{ entry.comment }</TableRowColumn>
       </TableRow>
     )
   }
@@ -151,7 +150,6 @@ class User extends Component {
                     <TableHeaderColumn>Purchased</TableHeaderColumn>
                     <TableHeaderColumn>Win</TableHeaderColumn>
                     <TableHeaderColumn>Prize</TableHeaderColumn>
-                    <TableHeaderColumn>App Prize</TableHeaderColumn>
                     <TableHeaderColumn>Comment</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
